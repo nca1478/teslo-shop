@@ -1,9 +1,9 @@
-import { titleFont } from "../config/fonts";
+import { Title } from "@/components";
 
 export default function Home() {
   return (
-    <div>
-      <h1 className={`${titleFont.className} text-5xl`}>Home Page</h1>
-    </div>
+    <>
+      <Title title="Tienda" subtitle="Todos los Productos" className="mb-2" />
+    </>
   );
 }
