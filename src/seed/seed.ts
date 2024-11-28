@@ -8,7 +8,7 @@ interface SeedProduct {
   tags: string[];
   title: string;
   type: ValidTypes;
-  gender: "men" | "women" | "kid" | "unisex";
+  gender: "men" | "women" | "kids" | "unisex";
 }
 
 type ValidSizes = "XS" | "S" | "M" | "L" | "XL" | "XXL" | "XXXL";
@@ -566,7 +566,7 @@ export const initialData: SeedData = {
       type: "shirts",
       tags: ["shirt"],
       title: "Kids Cybertruck Long Sleeve Tee",
-      gender: "kid",
+      gender: "kids",
     },
     {
       description:
@@ -579,7 +579,7 @@ export const initialData: SeedData = {
       type: "shirts",
       tags: ["shirt"],
       title: "Kids Scribble T Logo Tee",
-      gender: "kid",
+      gender: "kids",
     },
     {
       description:
@@ -592,7 +592,7 @@ export const initialData: SeedData = {
       type: "shirts",
       tags: ["shirt"],
       title: "Kids Cybertruck Tee",
-      gender: "kid",
+      gender: "kids",
     },
     {
       description:
@@ -605,7 +605,7 @@ export const initialData: SeedData = {
       type: "shirts",
       tags: ["shirt"],
       title: "Kids Racing Stripe Tee",
-      gender: "kid",
+      gender: "kids",
     },
     {
       description:
@@ -618,7 +618,7 @@ export const initialData: SeedData = {
       type: "shirts",
       tags: ["shirt"],
       title: "Kids 3D T Logo Tee",
-      gender: "kid",
+      gender: "kids",
     },
     {
       description:
@@ -631,7 +631,7 @@ export const initialData: SeedData = {
       type: "shirts",
       tags: ["shirt"],
       title: "Kids Checkered Tee",
-      gender: "kid",
+      gender: "kids",
     },
     {
       description:
@@ -644,7 +644,7 @@ export const initialData: SeedData = {
       type: "shirts",
       tags: ["shirt"],
       title: "Made on Earth by Humans Onesie",
-      gender: "kid",
+      gender: "kids",
     },
     {
       description:
@@ -657,7 +657,7 @@ export const initialData: SeedData = {
       type: "shirts",
       tags: ["shirt"],
       title: "Scribble T Logo Onesie",
-      gender: "kid",
+      gender: "kids",
     },
     {
       description:
@@ -670,7 +670,7 @@ export const initialData: SeedData = {
       type: "shirts",
       tags: ["shirt"],
       title: "Zero Emissions (Almost) Onesie",
-      gender: "kid",
+      gender: "kids",
     },
     {
       description:
@@ -683,7 +683,7 @@ export const initialData: SeedData = {
       type: "shirts",
       tags: ["shirt"],
       title: "Kids Cyberquad Bomber Jacket",
-      gender: "kid",
+      gender: "kids",
     },
     {
       description:
@@ -696,7 +696,7 @@ export const initialData: SeedData = {
       type: "shirts",
       tags: ["shirt"],
       title: "Kids Corp Jacket",
-      gender: "kid",
+      gender: "kids",
     },
   ],
 };
