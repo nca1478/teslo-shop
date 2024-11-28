@@ -1,4 +1,6 @@
 // Product
+
+export { QuantitySelector } from "./product/quantity-selector/QuantitySelector";
 export { SizeSelector } from "./product/size-selector/SizeSelector";
 
 // Products
