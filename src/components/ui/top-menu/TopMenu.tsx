@@ -1,19 +1,27 @@
 "use client";
 
+import Link from "next/link";
+import { IoCartOutline, IoSearchOutline } from "react-icons/io5";
+
 import { titleFont } from "@/app/config/fonts";
 import { useUIStore } from "@/store";
-import Link from "next/link";
-import React from "react";
-import { IoCartOutline, IoSearchOutline } from "react-icons/io5";
+import { useState } from "react";
 
 export const TopMenu = () => {
   const openSideMenu = useUIStore((state) => state.openSideMenu);
+  const [selected, setSelected] = useState<string>("");
 
   return (
     <nav className="flex px-5 justify-between items-center w-full">
       {/* Logo */}
       <div>
-        <Link href={"/"}>
+        <Link
+          href={"/"}
+          className={`m-2 p-2 rounded-md transition-all ${
+            selected === "logo" ? "bg-black text-white" : "hover:bg-gray-100"
+          }`}
+          onClick={() => setSelected("logo")}
+        >
           <span className={`${titleFont.className} antialiased font-bold`}>
             Teslo
           </span>
@@ -25,21 +33,33 @@ export const TopMenu = () => {
       <div className="hidden sm:block">
         <Link
           href="/category/men"
-          className="m-2 p-2 rounded-md transition-all hover:bg-gray-100"
+          // className="m-2 p-2 rounded-md transition-all hover:bg-gray-100"
+          className={`m-2 p-2 rounded-md transition-all ${
+            selected === "men" ? "bg-black text-white" : "hover:bg-gray-100"
+          }`}
+          onClick={() => setSelected("men")}
         >
-          Hombres
+          <span className={`${titleFont.className}`}>Hombres</span>
         </Link>
         <Link
           href="/category/women"
-          className="m-2 p-2 rounded-md transition-all hover:bg-gray-100"
+          // className="m-2 p-2 rounded-md transition-all hover:bg-gray-100"
+          className={`m-2 p-2 rounded-md transition-all ${
+            selected === "women" ? "bg-black text-white" : "hover:bg-gray-100"
+          }`}
+          onClick={() => setSelected("women")}
         >
-          Mujeres
+          <span className={`${titleFont.className}`}>Mujeres</span>
         </Link>
         <Link
           href="/category/kids"
-          className="m-2 p-2 rounded-md transition-all hover:bg-gray-100"
+          // className="m-2 p-2 rounded-md transition-all hover:bg-gray-100"
+          className={`m-2 p-2 rounded-md transition-all ${
+            selected === "kids" ? "bg-black text-white" : "hover:bg-gray-100"
+          }`}
+          onClick={() => setSelected("kids")}
         >
-          Niños
+          <span className={`${titleFont.className}`}>Niños</span>
         </Link>
       </div>
 
@@ -60,7 +80,7 @@ export const TopMenu = () => {
           onClick={openSideMenu}
           className="m-2 p-2 rounded-md transition-all hover:bg-gray-100"
         >
-          Menú
+          <span className={`${titleFont.className}`}>Menú</span>
         </button>
       </div>
     </nav>
