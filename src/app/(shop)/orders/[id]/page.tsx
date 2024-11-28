@@ -16,8 +16,8 @@ interface Props {
   };
 }
 
-export default function OrdersPage({ params }: Props) {
-  const { id } = params;
+export default async function OrdersPage({ params }: Props) {
+  const { id } = await params;
 
   // Todo: verificar
   // redirect(/)

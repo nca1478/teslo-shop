@@ -61,6 +61,7 @@ export const Sidebar = () => {
         <Link
           href="/"
           className="flex items-center mt-10 p-2 hover:bg-gray-100 rounded transition-all"
+          onClick={closeSideMenu}
         >
           <IoPersonOutline size={30} />
           <span className="ml-3 text-xl">Perfil</span>
@@ -69,6 +70,7 @@ export const Sidebar = () => {
         <Link
           href="/orders"
           className="flex items-center mt-10 p-2 hover:bg-gray-100 rounded transition-all"
+          onClick={closeSideMenu}
         >
           <IoTicketOutline size={30} />
           <span className="ml-3 text-xl">Ordenes</span>
@@ -77,6 +79,7 @@ export const Sidebar = () => {
         <Link
           href="/"
           className="flex items-center mt-10 p-2 hover:bg-gray-100 rounded transition-all"
+          onClick={closeSideMenu}
         >
           <IoLogInOutline size={30} />
           <span className="ml-3 text-xl">Ingresar</span>
@@ -85,6 +88,7 @@ export const Sidebar = () => {
         <Link
           href="/"
           className="flex items-center mt-10 p-2 hover:bg-gray-100 rounded transition-all"
+          onClick={closeSideMenu}
         >
           <IoLogOutOutline size={30} />
           <span className="ml-3 text-xl">Salir</span>
@@ -96,6 +100,7 @@ export const Sidebar = () => {
         <Link
           href="/"
           className="flex items-center mt-10 p-2 hover:bg-gray-100 rounded transition-all"
+          onClick={closeSideMenu}
         >
           <IoShirtOutline size={30} />
           <span className="ml-3 text-xl">Productos</span>
@@ -104,6 +109,7 @@ export const Sidebar = () => {
         <Link
           href="/"
           className="flex items-center mt-10 p-2 hover:bg-gray-100 rounded transition-all"
+          onClick={closeSideMenu}
         >
           <IoTicketOutline size={30} />
           <span className="ml-3 text-xl">Ordenes</span>
@@ -112,6 +118,7 @@ export const Sidebar = () => {
         <Link
           href="/"
           className="flex items-center mt-10 p-2 hover:bg-gray-100 rounded transition-all"
+          onClick={closeSideMenu}
         >
           <IoPeopleOutline size={30} />
           <span className="ml-3 text-xl">Usuarios</span>
