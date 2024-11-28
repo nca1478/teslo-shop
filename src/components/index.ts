@@ -9,6 +9,7 @@ export { ProductGrid } from "./products/product-grid/ProductGrid";
 export { ProductGridItem } from "./products/product-grid/ProductGridItem";
 
 // Ui
+export { Footer } from "./ui/footer/Footer";
 export { PageNotFound } from "./ui/not-found/PageNotFound";
 export { Title } from "./ui/title/Title";
 export { Sidebar } from "./ui/sidebar/Sidebar";
