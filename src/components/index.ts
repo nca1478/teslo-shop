@@ -1,3 +1,6 @@
+// Product
+export { SizeSelector } from "./product/size-selector/SizeSelector";
+
 // Products
 export { ProductGrid } from "./products/product-grid/ProductGrid";
 export { ProductGridItem } from "./products/product-grid/ProductGridItem";
