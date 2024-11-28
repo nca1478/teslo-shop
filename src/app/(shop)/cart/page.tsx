@@ -58,13 +58,13 @@ export default function CartPage() {
               <span className="text-right">3 artículos</span>
 
               <span>Subtotal</span>
-              <span className="text-right">$ 100</span>
+              <span className="text-right">$100</span>
 
               <span>Impuestos (15%)</span>
-              <span className="text-right">$ 100</span>
+              <span className="text-right">$100</span>
 
               <span className="mt-5 text-2xl">Total:</span>
-              <span className="mt-5 text-2xl text-right">$ 100</span>
+              <span className="mt-5 text-2xl text-right">$100</span>
             </div>
 
             <div className="mt-5 mb-2 w-full">
@@ -72,7 +72,7 @@ export default function CartPage() {
                 className="flex btn-primary justify-center"
                 href="/checkout/address"
               >
-                Checkout
+                Siguiente
               </Link>
             </div>
           </div>
