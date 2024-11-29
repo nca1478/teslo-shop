@@ -13,7 +13,17 @@ async function main() {
 
   // Agregar categorias
   const categoriesData = categories.map((name) => ({ name }));
-  await prisma.category.createMany({ data: categoriesData });
+  await prisma.category.createMany({
+    data: categoriesData,
+  });
+  const newCategories = await prisma.category.findMany();
+
+  const categoriesMap = newCategories.reduce((map, category) => {
+    map[category.name.toLowerCase()] = category.id;
+    return map;
+  }, {} as Record<string, string>);
+
+  console.log(categoriesMap);
   console.log("Categorias agregadas");
 
   console.log("Seed ejecutado correctamente");

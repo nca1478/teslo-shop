@@ -20,7 +20,7 @@ interface SeedData {
 }
 
 export const initialData: SeedData = {
-  categories: ["shirts", "pants", "hoodies", "hats"],
+  categories: ["Shirts", "Pants", "Hoodies", "Hats"],
   products: [
     {
       description:
