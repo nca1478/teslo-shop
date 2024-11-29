@@ -4,29 +4,42 @@ import prisma from "../lib/prisma";
 async function main() {
   // Borrar registros previos
   await Promise.all([
-    prisma.productImage.deleteMany(),
-    prisma.product.deleteMany(),
-    prisma.category.deleteMany(),
+    await prisma.productImage.deleteMany(),
+    await prisma.product.deleteMany(),
+    await prisma.category.deleteMany(),
   ]);
 
-  const { categories, products } = initialData;
-
   // Agregar categorias
+  const { categories, products } = initialData;
   const categoriesData = categories.map((name) => ({ name }));
+
   await prisma.category.createMany({
     data: categoriesData,
   });
-  const newCategories = await prisma.category.findMany();
 
-  const categoriesMap = newCategories.reduce((map, category) => {
+  const categoriesDB = await prisma.category.findMany();
+  const categoriesMap = categoriesDB.reduce((map, category) => {
     map[category.name.toLowerCase()] = category.id;
     return map;
-  }, {} as Record<string, string>);
+  }, {} as Record<string, string>); //<string=shirt, string=categoryID>
 
-  console.log(categoriesMap);
-  console.log("Categorias agregadas");
+  console.log("Categorias agregadas...");
 
-  console.log("Seed ejecutado correctamente");
+  // Agregar Productos
+  products.forEach(async (product) => {
+    const { type, images, ...rest } = product;
+
+    const dbProduct = await prisma.product.create({
+      data: {
+        ...rest,
+        categoryId: categoriesMap[type],
+      },
+    });
+  });
+
+  console.log("Productos agregados...");
+
+  console.log("\nSeed ejecutado correctamente");
 }
 
 (() => {

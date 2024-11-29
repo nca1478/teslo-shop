@@ -16,6 +16,7 @@ datasource db {
 enum Size {
   XS
   S
+  M
   L
   XL
   XXL
@@ -25,7 +26,7 @@ enum Size {
 enum Gender {
   men
   women
-  kit
+  kids
   unisex
 }
 
@@ -47,8 +48,9 @@ model Product {
   gender      Gender
 
   //Relaciones
-  category     Category       @relation(fields: [categoryId], references: [id])
-  categoryId   String
+  category   Category @relation(fields: [categoryId], references: [id])
+  categoryId String
+
   ProductImage ProductImage[]
 
   @@index([gender])
