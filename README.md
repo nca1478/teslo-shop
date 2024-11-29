@@ -9,7 +9,8 @@ Tienda E-commerce desarrollada en Nextjs 15 y Tailwind.
 3. Instalar las dependencias `npm install`.
 4. Para el proyecto actual, ejecutar `npm install --force`, por la libreria zustand.
 5. Levantar la base de datos `docker compose up -d`.
-6. Correr el proyecto `npm run dev`.
+6. Correr las migraciones de Prisma `npx prisma migrate dev` y `npx prisma generate`.
+7. Correr el proyecto `npm run dev`.
 
 # Ejecutar en PROD
 
