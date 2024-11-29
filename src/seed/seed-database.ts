@@ -2,14 +2,19 @@ import { initialData } from "./seed";
 import prisma from "../lib/prisma";
 
 async function main() {
-  // Borrar registros previos
-  await Promise.all([
-    await prisma.productImage.deleteMany(),
-    await prisma.product.deleteMany(),
-    await prisma.category.deleteMany(),
-  ]);
+  // ========================== Borrar registros previos ===========================
+  // await Promise.all([
 
-  // Agregar categorias
+  // Alternativa #1 - sin reset de id
+  // await prisma.productImage.deleteMany();
+
+  // Alternativa #2 - resetea también los id de ProductImage
+  await prisma.$executeRaw`TRUNCATE TABLE ONLY public."ProductImage" RESTART IDENTITY CASCADE;`;
+  await prisma.product.deleteMany();
+  await prisma.category.deleteMany();
+  // ]);
+
+  // ============================= Agregar categorias ==============================
   const { categories, products } = initialData;
   const categoriesData = categories.map((name) => ({ name }));
 
@@ -23,10 +28,8 @@ async function main() {
     return map;
   }, {} as Record<string, string>); //<string=shirt, string=categoryID>
 
-  console.log("Categorias agregadas...");
-
-  // Agregar Productos
   products.forEach(async (product) => {
+    // ============================== Agregar Productos ==============================
     const { type, images, ...rest } = product;
 
     const dbProduct = await prisma.product.create({
@@ -35,11 +38,19 @@ async function main() {
         categoryId: categoriesMap[type],
       },
     });
+
+    // ============================== Agregar Imagenes =============================
+    const imagesData = images.map((image) => ({
+      url: image,
+      productId: dbProduct.id,
+    }));
+
+    await prisma.productImage.createMany({
+      data: imagesData,
+    });
   });
 
-  console.log("Productos agregados...");
-
-  console.log("\nSeed ejecutado correctamente");
+  console.log("Seed ejecutado correctamente...!");
 }
 
 (() => {
