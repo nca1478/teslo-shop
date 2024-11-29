@@ -20,7 +20,7 @@ export const Pagination = ({ totalPages }: Props) => {
       return `${pathname}?${params.toString()}`;
     }
 
-    if (+pageNumber === 0) {
+    if (+pageNumber <= 0) {
       return `${pathname}`;
     }
 
@@ -47,12 +47,12 @@ export const Pagination = ({ totalPages }: Props) => {
             </Link>
           </li>
           <li className="page-item">
-            <Link
+            <a
               className="page-link relative block py-1.5 px-3 border-0 bg-transparent outline-none transition-all duration-300 rounded text-gray-800 hover:text-gray-800 hover:bg-gray-200 focus:shadow-none"
               href="#"
             >
               1
-            </Link>
+            </a>
           </li>
           <li className="page-item active">
             <a

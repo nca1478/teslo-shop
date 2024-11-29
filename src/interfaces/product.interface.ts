@@ -9,7 +9,7 @@ export interface Product {
   tags: string[];
   gender: Category;
   images: string[];
-  // type: Type;
+  // todo: type: Type;
 }
 export type Category = "men" | "women" | "kids" | "unisex";
 export type Size = "XS" | "S" | "M" | "L" | "XL" | "XXL" | "XXXL";
