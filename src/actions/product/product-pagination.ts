@@ -12,7 +12,7 @@ interface PaginationOptions {
 export const getPaginatedProductsWithImages = async ({
   page = 1,
   take = 12,
-  gender = undefined,
+  gender,
 }: PaginationOptions) => {
   // validaciones page
   if (isNaN(Number(page))) page = 1;
@@ -21,7 +21,6 @@ export const getPaginatedProductsWithImages = async ({
   try {
     // 1. Obtener los productos
     const products = await prisma.product.findMany({
-      where: { gender },
       take,
       skip: (page - 1) * take,
       include: {
@@ -32,12 +31,15 @@ export const getPaginatedProductsWithImages = async ({
           },
         },
       },
+      // filtrar por género, null: muestra todo los productos
+      where: { gender },
     });
 
     // 2. Obtener el total de páginas
     const totalCount = await prisma.product.count({
       where: { gender },
     });
+
     const totalPages = Math.ceil(totalCount / take);
 
     // 3. Parsear la respuesta (para que sea compatible con la interfaz Product)
@@ -52,7 +54,7 @@ export const getPaginatedProductsWithImages = async ({
       totalPages,
     };
   } catch (error) {
-    console.log(error);
+    // aqui muestra la vista error.tsx
     throw new Error("No se pudo cargar los productos");
   }
 };
