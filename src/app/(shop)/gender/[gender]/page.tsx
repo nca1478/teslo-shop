@@ -1,3 +1,5 @@
+export const revalidate = 60; // mantener página en cache por 60 seg
+
 import { getPaginatedProductsWithImages } from "@/actions";
 import { Pagination, ProductGrid, Title } from "@/components";
 import { Gender } from "@/interfaces";
@@ -20,11 +22,10 @@ export default async function GenderPage({ params, searchParams }: Props) {
   // data fictisia (seed/seed-database)
   // const products = seedProducts.filter((product) => gender === product.gender);
 
-  const { products, currentPage, totalPages } =
-    await getPaginatedProductsWithImages({
-      page: pageParam,
-      gender,
-    });
+  const { products, totalPages } = await getPaginatedProductsWithImages({
+    page: pageParam,
+    gender,
+  });
 
   if (products.length === 0) {
     redirect(`/gender/${gender}`);
