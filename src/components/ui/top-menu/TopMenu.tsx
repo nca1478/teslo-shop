@@ -32,7 +32,7 @@ export const TopMenu = () => {
       {/* Center Menu */}
       <div className="hidden sm:block">
         <Link
-          href="/category/men"
+          href="/gender/men"
           // className="m-2 p-2 rounded-md transition-all hover:bg-gray-100"
           className={`m-2 p-2 rounded-md transition-all ${
             selected === "men" ? "bg-black text-white" : "hover:bg-gray-100"
@@ -42,7 +42,7 @@ export const TopMenu = () => {
           <span className={`${titleFont.className}`}>Hombres</span>
         </Link>
         <Link
-          href="/category/women"
+          href="/gender/women"
           // className="m-2 p-2 rounded-md transition-all hover:bg-gray-100"
           className={`m-2 p-2 rounded-md transition-all ${
             selected === "women" ? "bg-black text-white" : "hover:bg-gray-100"
@@ -52,7 +52,7 @@ export const TopMenu = () => {
           <span className={`${titleFont.className}`}>Mujeres</span>
         </Link>
         <Link
-          href="/category/kids"
+          href="/gender/kids"
           // className="m-2 p-2 rounded-md transition-all hover:bg-gray-100"
           className={`m-2 p-2 rounded-md transition-all ${
             selected === "kids" ? "bg-black text-white" : "hover:bg-gray-100"
