@@ -35,7 +35,7 @@ export const generatePaginationNumbers = (
   ];
 };
 
-// otra alternativa para generar los números de la paginación
+// otra alternativa
 export const createPaginationNumbers = (
   currentPage: number,
   totalPages: number

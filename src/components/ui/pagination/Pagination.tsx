@@ -1,7 +1,9 @@
 "use client";
 
+import { generatePaginationNumbers } from "@/utils";
+import clsx from "clsx";
 import Link from "next/link";
-import { usePathname, useSearchParams } from "next/navigation";
+import { redirect, usePathname, useSearchParams } from "next/navigation";
 import { IoChevronBackOutline, IoChevronForwardOutline } from "react-icons/io5";
 
 interface Props {
@@ -9,9 +11,25 @@ interface Props {
 }
 
 export const Pagination = ({ totalPages }: Props) => {
+  // obtener ruta actual
   const pathname = usePathname();
+
+  // obtener parámetros de la ruta
   const searchParams = useSearchParams();
-  const currentPage = Number(searchParams.get("page")) ?? 1;
+
+  // verificar si hay parámetros en la ruta
+  const pageString = searchParams.get("page") ?? 1;
+
+  // si los params son válidos devuelva 1, si no convierta los params en número
+  const currentPage = isNaN(+pageString) ? 1 : +pageString;
+
+  // redirijar al pathname actual, si la página actual (url) no es válida
+  if (currentPage < 1 || isNaN(+pageString)) {
+    redirect(pathname);
+  }
+
+  // generar números de la paginación
+  const allPages = generatePaginationNumbers(currentPage, totalPages);
 
   const createPageUrl = (pageNumber: number | string) => {
     const params = new URLSearchParams(searchParams);
@@ -37,6 +55,7 @@ export const Pagination = ({ totalPages }: Props) => {
     <div className="flex text-center justify-center mt-10 mb-20">
       <nav aria-label="Page navigation example">
         <ul className="flex list-style-none">
+          {/* Botón Anterior */}
           <li className="page-item">
             <Link
               className="page-link relative block py-1.5 px-3 border-0 bg-transparent outline-none transition-all duration-300 rounded text-gray-800 hover:text-gray-800 hover:bg-gray-200 focus:shadow-none"
@@ -46,30 +65,26 @@ export const Pagination = ({ totalPages }: Props) => {
               <IoChevronBackOutline size={30} />
             </Link>
           </li>
-          <li className="page-item">
-            <a
-              className="page-link relative block py-1.5 px-3 border-0 bg-transparent outline-none transition-all duration-300 rounded text-gray-800 hover:text-gray-800 hover:bg-gray-200 focus:shadow-none"
-              href="#"
-            >
-              1
-            </a>
-          </li>
-          <li className="page-item active">
-            <a
-              className="page-link relative block py-1.5 px-3 border-0 bg-blue-600 outline-none transition-all duration-300 rounded text-white hover:text-white hover:bg-blue-600 shadow-md focus:shadow-md"
-              href="#"
-            >
-              2 <span className="visually-hidden"></span>
-            </a>
-          </li>
-          <li className="page-item">
-            <a
-              className="page-link relative block py-1.5 px-3 border-0 bg-transparent outline-none transition-all duration-300 rounded text-gray-800 hover:text-gray-800 hover:bg-gray-200 focus:shadow-none"
-              href="#"
-            >
-              3
-            </a>
-          </li>
+
+          {/* Botones de números */}
+          {allPages.map((page, index) => (
+            <li key={index} className="page-item">
+              <Link
+                className={clsx(
+                  "page-link relative block py-1.5 px-3 border-0 outline-none transition-all duration-300 rounded text-gray-800 hover:text-gray-800 hover:bg-gray-200 focus:shadow-none",
+                  {
+                    "bg-black shadow-sm text-white hover:bg-gray-600 hover:text-white":
+                      page === currentPage,
+                  }
+                )}
+                href={createPageUrl(page)}
+              >
+                {page}
+              </Link>
+            </li>
+          ))}
+
+          {/* Botón de Próximo */}
           <li className="page-item">
             <Link
               className="page-link relative block py-1.5 px-3 border-0 bg-transparent outline-none transition-all duration-300 rounded text-gray-800 hover:text-gray-800 hover:bg-gray-200 focus:shadow-none"
