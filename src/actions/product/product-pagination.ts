@@ -55,6 +55,10 @@ export const getPaginatedProductsWithImages = async ({
     };
   } catch (error) {
     // aqui muestra la vista error.tsx
-    throw new Error("No se pudo cargar los productos");
+    if (error instanceof Error) {
+      throw new Error("No se pudo cargar los productos", { cause: error });
+    } else {
+      throw new Error("No se pudo cargar los productos");
+    }
   }
 };
