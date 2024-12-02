@@ -1,5 +1,7 @@
 export const revalidate = 10080; // 7 días
 
+import type { Metadata } from "next";
+import { notFound } from "next/navigation";
 import { getProductBySlug } from "@/actions";
 import { titleFont } from "@/app/config/fonts";
 import {
@@ -10,10 +12,33 @@ import {
   StockLabel,
 } from "@/components";
 // import { initialData } from "@/seed/seed";
-import { notFound } from "next/navigation";
 
 interface Props {
   params: Promise<{ slug: string }>;
+}
+
+export async function generateMetadata({
+  params,
+}: Props): // parent: ResolvingMetadata
+Promise<Metadata> {
+  // read route params
+  const { slug } = await params;
+
+  // fetch data
+  const product = await getProductBySlug(slug);
+
+  // optionally access and extend (rather than replace) parent metadata
+  // const previousImages = (await parent).openGraph?.images || [];
+
+  return {
+    title: product?.title ?? "Producto no encontrado",
+    description: product?.description ?? "",
+    openGraph: {
+      title: product?.title ?? "Producto no encontrado",
+      description: product?.description ?? "",
+      images: [`/products/${product?.images[1]}`],
+    },
+  };
 }
 
 export default async function ProductPage({ params }: Props) {
@@ -56,14 +81,14 @@ export default async function ProductPage({ params }: Props) {
         {/* Stock */}
         <StockLabel slug={product.slug} />
 
+        {/* Selector de Cantidad */}
+        <QuantitySelector quantity={2} />
+
         {/* Selector de Tallas */}
         <SizeSelector
           selectedSize={product.sizes[0]}
           availableSizes={product.sizes}
         />
-
-        {/* Selector de Cantidad */}
-        <QuantitySelector quantity={2} />
 
         {/* Button */}
         <button className="btn-primary my-5">Agregar al carrito</button>
