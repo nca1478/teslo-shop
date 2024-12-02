@@ -7,11 +7,9 @@ import { titleFont } from "@/app/config/fonts";
 import {
   ProductMobileSlideshow,
   ProductSlideshow,
-  QuantitySelector,
-  SizeSelector,
   StockLabel,
 } from "@/components";
-// import { initialData } from "@/seed/seed";
+import { AddToCart } from "./ui/AddToCart";
 
 interface Props {
   params: Promise<{ slug: string }>;
@@ -43,8 +41,6 @@ Promise<Metadata> {
 
 export default async function ProductPage({ params }: Props) {
   const { slug } = await params;
-  // const product = initialData.products.find((product) => product.slug === slug);
-
   const product = await getProductBySlug(slug);
 
   if (!product) {
@@ -81,17 +77,8 @@ export default async function ProductPage({ params }: Props) {
         {/* Stock */}
         <StockLabel slug={product.slug} />
 
-        {/* Selector de Cantidad */}
-        <QuantitySelector quantity={2} />
-
-        {/* Selector de Tallas */}
-        <SizeSelector
-          selectedSize={product.sizes[0]}
-          availableSizes={product.sizes}
-        />
-
-        {/* Button */}
-        <button className="btn-primary my-5">Agregar al carrito</button>
+        {/* Agregar al carrito */}
+        <AddToCart product={product} />
 
         {/* Descripción */}
         <h3 className="font-bold text-sm">Descripción</h3>
