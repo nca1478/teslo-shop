@@ -7,6 +7,7 @@ import {
   ProductSlideshow,
   QuantitySelector,
   SizeSelector,
+  StockLabel,
 } from "@/components";
 // import { initialData } from "@/seed/seed";
 import { notFound } from "next/navigation";
@@ -51,6 +52,9 @@ export default async function ProductPage({ params }: Props) {
         </h1>
 
         <p className="text-lg mb-5">${product.price}</p>
+
+        {/* Stock */}
+        <StockLabel slug={product.slug} />
 
         {/* Selector de Tallas */}
         <SizeSelector
