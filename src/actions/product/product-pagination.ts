@@ -33,6 +33,9 @@ export const getPaginatedProductsWithImages = async ({
       },
       // filtrar por género, null: muestra todo los productos
       where: { gender },
+      orderBy: {
+        title: "asc",
+      },
     });
 
     // 2. Obtener el total de páginas
