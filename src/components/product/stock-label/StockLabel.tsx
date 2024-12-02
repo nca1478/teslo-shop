@@ -9,15 +9,21 @@ interface Props {
 }
 
 export const StockLabel = ({ slug }: Props) => {
-  // const [stock, setStock] = useState(0);
+  const [stock, setStock] = useState(0);
+  // const [isLoading, setIsLoading] = useState(true);
+
+  const getStock = async () => {
+    const inStock = await getStockBySlug(slug);
+    setStock(inStock);
+  };
 
   useEffect(() => {
-    console.log(getStockBySlug(slug));
-  }, [slug]);
+    getStock();
+  }, [getStock]);
 
   return (
     <h1 className={`${titleFont.className} antialiased font-bold text-xl`}>
-      En Stock: 150 Und.
+      En Stock: {stock} Und.
     </h1>
   );
 };
