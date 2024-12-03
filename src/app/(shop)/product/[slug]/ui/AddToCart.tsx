@@ -32,6 +32,7 @@ export const AddToCart = ({ product }: Props) => {
 
     addProductToCart(cartProduct);
 
+    // resetear valores del formulario
     setPosted(false);
     setQuantity(1);
     setSize(undefined);

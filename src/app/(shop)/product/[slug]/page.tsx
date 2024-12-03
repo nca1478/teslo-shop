@@ -72,7 +72,7 @@ export default async function ProductPage({ params }: Props) {
           {product.title}
         </h1>
 
-        <p className="text-lg mb-5">${product.price}</p>
+        <p className="text-4xl mt-4 mb-5">${product.price}</p>
 
         {/* Stock */}
         <StockLabel slug={product.slug} />

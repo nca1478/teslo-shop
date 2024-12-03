@@ -18,11 +18,15 @@ interface State {
 }
 
 export const useCartStore = create<State>()(
+  // zustand en redux dev tools
   devtools(
+    // persistir store en localstorage
     persist(
       (set, get) => ({
+        // store
         cart: [],
 
+        // métodos
         addProductToCart: (product: CartProduct) => {
           const { cart } = get();
 
@@ -99,6 +103,7 @@ export const useCartStore = create<State>()(
           set({ cart: updateCartProducts });
         },
       }),
+      // configuración de persistencia: localStorage o sessionStorage
       {
         name: "shopping-cart",
         storage: createJSONStorage(() => localStorage),
