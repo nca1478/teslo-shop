@@ -2,13 +2,16 @@
 
 import { useEffect, useState } from "react";
 import { useCartStore } from "@/store";
+import { useShallow } from "zustand/shallow";
 
 export const OrderSummary = () => {
-  const summaryInformation = useCartStore(
-    (state) => state.getSummaryInformation
-  );
+  // alternativa #1, al seleccionar el cart, este se vuelve a renderizar
+  // useCartStore((state) => state.cart);
 
-  const { itemsInCart, subTotal, tax, total } = summaryInformation();
+  // alternativa #2, useShallow: se suscribe al state calculado sin renderizar (hook de zustand)
+  const { itemsInCart, subTotal, tax, total } = useCartStore(
+    useShallow((state) => state.getSummaryInformation())
+  );
 
   const [loaded, setloaded] = useState(false);
 
