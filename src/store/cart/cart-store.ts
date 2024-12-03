@@ -6,6 +6,7 @@ interface State {
   cart: CartProduct[];
 
   addProductToCart: (product: CartProduct) => void;
+  getTotalItems: () => number;
   // updateProductQuantity
   // removeProduct
 }
@@ -40,8 +41,17 @@ export const useCartStore = create<State>()(
 
           set({ cart: updateCartProducts });
         },
+
+        getTotalItems: () => {
+          const { cart } = get();
+          return cart.reduce((total, item) => total + item.quantity, 0);
+        },
       }),
-      { name: "shopping-cart", storage: createJSONStorage(() => localStorage) }
+      {
+        name: "shopping-cart",
+        storage: createJSONStorage(() => localStorage),
+        // skipHydration: true,
+      }
     )
   )
 );
