@@ -1,13 +1,17 @@
 "use client";
 
-import Image from "next/image";
-import { QuantitySelector } from "@/components";
-import { useCartStore } from "@/store";
 import { useEffect, useState } from "react";
 import Link from "next/link";
+import Image from "next/image";
+
+import { QuantitySelector } from "@/components";
+import { useCartStore } from "@/store";
 
 export const ProductsInCart = () => {
   const productsInCart = useCartStore((store) => store.cart);
+  const updateProductQuantity = useCartStore(
+    (store) => store.updateProductQuantity
+  );
   const [loaded, setloaded] = useState(false); // evitar error hidratación
 
   useEffect(() => {
@@ -35,6 +39,7 @@ export const ProductsInCart = () => {
           />
 
           <div>
+            {/* Nombre Producto */}
             <Link
               className="hover:underline cursor-pointer"
               href={`/product/${product.slug}`}
@@ -42,12 +47,18 @@ export const ProductsInCart = () => {
               {product.title} - <span>{`(${product.size})`}</span>
             </Link>
 
+            {/* Precio Producto */}
             <p>${product.price}</p>
+
+            {/* Selector de Cantidad */}
             <QuantitySelector
-              quantity={3}
-              onQuantityChanged={(value) => console.log(value)}
+              quantity={product.quantity}
+              onQuantityChanged={(quantity) =>
+                updateProductQuantity(product, quantity)
+              }
             />
 
+            {/* Botón de Eliminar Producto */}
             <button className="underline mt-3">Remover</button>
           </div>
         </div>
