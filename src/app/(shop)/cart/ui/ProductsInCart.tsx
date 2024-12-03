@@ -12,6 +12,7 @@ export const ProductsInCart = () => {
   const updateProductQuantity = useCartStore(
     (store) => store.updateProductQuantity
   );
+  const removeProduct = useCartStore((store) => store.removeProduct);
   const [loaded, setloaded] = useState(false); // evitar error hidratación
 
   useEffect(() => {
@@ -48,7 +49,7 @@ export const ProductsInCart = () => {
             </Link>
 
             {/* Precio Producto */}
-            <p>${product.price}</p>
+            <p className="font-bold">${product.price}</p>
 
             {/* Selector de Cantidad */}
             <QuantitySelector
@@ -59,7 +60,12 @@ export const ProductsInCart = () => {
             />
 
             {/* Botón de Eliminar Producto */}
-            <button className="underline mt-3">Remover</button>
+            <button
+              onClick={() => removeProduct(product)}
+              className="underline mt-3"
+            >
+              Remover
+            </button>
           </div>
         </div>
       ))}
