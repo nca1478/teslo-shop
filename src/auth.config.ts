@@ -1,8 +1,8 @@
 import NextAuth, { type NextAuthConfig } from "next-auth";
 import Credentials from "next-auth/providers/credentials";
 import { z } from "zod";
-import prisma from "./lib/prisma";
 import bcryptjs from "bcryptjs";
+import prisma from "@/lib/prisma";
 
 export const authConfig: NextAuthConfig = {
   pages: {
@@ -32,7 +32,7 @@ export const authConfig: NextAuthConfig = {
 
         const { password: _, ...rest } = user;
 
-        console.log({ rest });
+        // console.log({ rest });
 
         return rest;
       },
@@ -40,4 +40,4 @@ export const authConfig: NextAuthConfig = {
   ],
 };
 
-export const { signIn, signOut, auth } = NextAuth(authConfig);
+export const { signIn, signOut, auth, handlers } = NextAuth(authConfig);
