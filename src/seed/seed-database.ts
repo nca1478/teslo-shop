@@ -10,12 +10,18 @@ async function main() {
 
   // Alternativa #2 - resetea también los id de ProductImage
   await prisma.$executeRaw`TRUNCATE TABLE ONLY public."ProductImage" RESTART IDENTITY CASCADE;`;
+
   await prisma.product.deleteMany();
   await prisma.category.deleteMany();
+  await prisma.user.deleteMany();
   // ]);
 
+  const { categories, products, users } = initialData;
+
+  // ============================== Agregar usuarios ===============================
+  await prisma.user.createMany({ data: users });
+
   // ============================= Agregar categorias ==============================
-  const { categories, products } = initialData;
   const categoriesData = categories.map((name) => ({ name }));
 
   await prisma.category.createMany({
