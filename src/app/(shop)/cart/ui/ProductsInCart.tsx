@@ -26,6 +26,7 @@ export const ProductsInCart = () => {
   return (
     <>
       {productsInCart.map((product) => (
+        // Se construye un key único, para los casos del mismo producto y tallas diferentes
         <div key={`${product.slug}-${product.size}`} className="flex mb-5">
           <Image
             src={`/products/${product.image}`}

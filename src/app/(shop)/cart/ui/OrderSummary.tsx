@@ -3,6 +3,7 @@
 import { useEffect, useState } from "react";
 import { useCartStore } from "@/store";
 import { useShallow } from "zustand/shallow";
+import Link from "next/link";
 
 export const OrderSummary = () => {
   // alternativa #1, al seleccionar el cart, este se vuelve a renderizar
@@ -24,20 +25,42 @@ export const OrderSummary = () => {
   }
 
   return (
-    <div className="grid grid-cols-2">
-      <span>No. Productos</span>
-      <span className="text-right">
-        {itemsInCart === 1 ? "1 artículo" : `${itemsInCart} artículos`}
-      </span>
+    <>
+      {/* Resumen de la orden */}
+      <div className="grid grid-cols-2">
+        <span>Cantidad</span>
+        <span className="text-right">
+          {itemsInCart === 1 ? "1 artículo" : `${itemsInCart} artículos`}
+        </span>
 
-      <span>Subtotal</span>
-      <span className="text-right">${subTotal.toFixed(2)}</span>
+        <span>Subtotal</span>
+        <span className="text-right">${subTotal.toFixed(2)}</span>
 
-      <span>Impuestos (15%)</span>
-      <span className="text-right">${tax.toFixed(2)}</span>
+        <span>Impuestos (15%)</span>
+        <span className="text-right">${tax.toFixed(2)}</span>
 
-      <span className="mt-5 text-2xl">Total:</span>
-      <span className="mt-5 text-2xl text-right">${total.toFixed(2)}</span>
-    </div>
+        <span className="mt-5 text-2xl">Total:</span>
+        <span className="mt-5 text-2xl text-right">${total.toFixed(2)}</span>
+      </div>
+
+      {/* Botón de siguiente */}
+      <div className="mt-5 mb-2 w-full">
+        {itemsInCart > 0 ? (
+          <Link
+            className="flex btn-primary justify-center"
+            href="/checkout/address"
+          >
+            Siguiente
+          </Link>
+        ) : (
+          <button
+            className="flex w-full btn-primary justify-center opacity-50"
+            disabled
+          >
+            Siguiente
+          </button>
+        )}
+      </div>
+    </>
   );
 };
