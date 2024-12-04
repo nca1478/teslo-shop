@@ -1,4 +1,4 @@
-import { auth } from "@/auth.config";
+import { auth } from "@/config/auth/auth.config";
 import { redirect } from "next/navigation";
 
 export default async function ShopLayout({

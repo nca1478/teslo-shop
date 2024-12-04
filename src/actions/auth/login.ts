@@ -1,6 +1,6 @@
 "use server";
 
-import { signIn } from "@/auth.config";
+import { signIn } from "@/config/auth/auth.config";
 // import { sleep } from "@/utils";
 // import { AuthError } from "next-auth";
 
