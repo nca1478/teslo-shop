@@ -2,6 +2,7 @@
 
 import clsx from "clsx";
 import { useForm } from "react-hook-form";
+import { Country } from "@/interfaces";
 
 type FormInputs = {
   firstName: string;
@@ -15,7 +16,11 @@ type FormInputs = {
   remenberAddress: boolean;
 };
 
-export const AddressForm = () => {
+interface Props {
+  countries: Country[];
+}
+
+export const AddressForm = ({ countries }: Props) => {
   const {
     handleSubmit,
     register,
@@ -35,6 +40,7 @@ export const AddressForm = () => {
       onSubmit={handleSubmit(onSubmit)}
       className="grid grid-cols-1 gap-2 sm:gap-5 sm:grid-cols-2"
     >
+      {/* Nombres */}
       <div className="flex flex-col mb-2">
         <span>Nombres</span>
         <input
@@ -44,6 +50,7 @@ export const AddressForm = () => {
         />
       </div>
 
+      {/* Apellidos */}
       <div className="flex flex-col mb-2">
         <span>Apellidos</span>
         <input
@@ -53,6 +60,7 @@ export const AddressForm = () => {
         />
       </div>
 
+      {/* Dirección */}
       <div className="flex flex-col mb-2">
         <span>Dirección</span>
         <input
@@ -62,6 +70,7 @@ export const AddressForm = () => {
         />
       </div>
 
+      {/* Dirección 2 */}
       <div className="flex flex-col mb-2">
         <span>Dirección 2 (opcional)</span>
         <input
@@ -71,6 +80,7 @@ export const AddressForm = () => {
         />
       </div>
 
+      {/* Código Postal */}
       <div className="flex flex-col mb-2">
         <span>Código postal</span>
         <input
@@ -80,6 +90,7 @@ export const AddressForm = () => {
         />
       </div>
 
+      {/* Ciudad */}
       <div className="flex flex-col mb-2">
         <span>Ciudad</span>
         <input
@@ -89,6 +100,7 @@ export const AddressForm = () => {
         />
       </div>
 
+      {/* País */}
       <div className="flex flex-col mb-2">
         <span>País</span>
         <select
@@ -96,10 +108,15 @@ export const AddressForm = () => {
           {...register("country", { required: true })}
         >
           <option value="">[ Seleccione ]</option>
-          <option value="VE">Venezuela</option>
+          {countries.map((country) => (
+            <option key={country.id} value={country.id}>
+              {country.name}
+            </option>
+          ))}
         </select>
       </div>
 
+      {/* Teléfono */}
       <div className="flex flex-col mb-2">
         <span>Teléfono</span>
         <input
@@ -109,7 +126,7 @@ export const AddressForm = () => {
         />
       </div>
 
-      {/* Check ¿Recordar dirección? */}
+      {/* Checkbox ¿Recordar dirección? */}
       <div className="flex flex-col mb-2 sm:mt-1">
         <div className="inline-flex items-center mb-10">
           <label
@@ -143,6 +160,7 @@ export const AddressForm = () => {
           <span>¿Recordar Dirección?</span>
         </div>
 
+        {/* Botón de Submit */}
         <button
           type="submit"
           // className="btn-primary flex w-full sm:w-1/2 justify-center "
