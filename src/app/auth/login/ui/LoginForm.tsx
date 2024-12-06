@@ -1,7 +1,7 @@
 "use client";
 
-import { useEffect } from "react";
-import { useFormState, useFormStatus } from "react-dom";
+import { useActionState, useEffect } from "react";
+import { useFormStatus } from "react-dom";
 import clsx from "clsx";
 import Link from "next/link";
 import { IoInformationOutline } from "react-icons/io5";
@@ -10,7 +10,7 @@ import { authenticate } from "@/actions";
 
 export const LoginForm = () => {
   // const router = useRouter();
-  const [state, dispatch] = useFormState(authenticate, undefined);
+  const [state, dispatch] = useActionState(authenticate, undefined);
 
   useEffect(() => {
     if (state === "Success") {
