@@ -13,11 +13,12 @@ import {
   IoShirtOutline,
   IoTicketOutline,
 } from "react-icons/io5";
-import { useUIStore } from "@/store";
+import { useCartStore, useUIStore } from "@/store";
 import { logout } from "@/actions";
 
 export const Sidebar = () => {
   const isSideMenuOpen = useUIStore((state) => state.isSideMenuOpen);
+  const removeAllProducts = useCartStore((state) => state.removeAllProducts);
   const closeMenu = useUIStore((state) => state.closeSideMenu);
   const { data: session } = useSession();
   const isAuthenticated = !!session?.user;
@@ -25,7 +26,12 @@ export const Sidebar = () => {
 
   const handleLogout = async () => {
     await logout();
+    removeAllProducts();
+
+    // recargar vista (para actualizar menu) y redirect a home
     window.location.reload();
+    window.location.replace("/");
+
     closeMenu();
   };
 

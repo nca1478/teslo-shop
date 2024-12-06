@@ -15,6 +15,7 @@ interface State {
   };
   updateProductQuantity: (product: CartProduct, quantity: number) => void;
   removeProduct: (product: CartProduct) => void;
+  removeAllProducts: () => void;
 }
 
 export const useCartStore = create<State>()(
@@ -101,6 +102,10 @@ export const useCartStore = create<State>()(
           );
 
           set({ cart: updateCartProducts });
+        },
+
+        removeAllProducts: () => {
+          set({ cart: [] });
         },
       }),
       // configuración de persistencia: localStorage o sessionStorage
