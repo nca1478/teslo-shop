@@ -4,7 +4,7 @@ import { useState } from "react";
 import clsx from "clsx";
 import Link from "next/link";
 import { SubmitHandler, useForm } from "react-hook-form";
-import { registerUser } from "@/actions";
+import { login, registerUser } from "@/actions";
 
 type FormInputs = {
   name: string;
@@ -34,7 +34,11 @@ export const RegisterForm = () => {
       return;
     }
 
-    console.log({ resp });
+    // hacer login
+    await login(email.toLowerCase(), password);
+
+    // recargar vista (para actualizar menu)
+    window.location.replace("/");
   };
 
   return (

@@ -1,7 +1,7 @@
 // auth
-export { authenticate } from "./auth/login";
-export { logout } from "./auth/logout";
-export { registerUser } from "./auth/register";
+export * from "./auth/login";
+export * from "./auth/logout";
+export * from "./auth/register";
 
 // product
 export { getPaginatedProductsWithImages } from "./product/product-pagination";
