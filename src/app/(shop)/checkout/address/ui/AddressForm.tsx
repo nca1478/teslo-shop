@@ -2,7 +2,7 @@
 
 import clsx from "clsx";
 import { useForm } from "react-hook-form";
-import { Country } from "@/interfaces";
+import { Address, Country } from "@/interfaces";
 import { useAddressStore } from "@/store";
 import { useEffect } from "react";
 import { deleteUserAddress, setUserAddress } from "@/actions";
@@ -22,9 +22,10 @@ type FormInputs = {
 
 interface Props {
   countries: Country[];
+  userStoredAddress?: Partial<Address>;
 }
 
-export const AddressForm = ({ countries }: Props) => {
+export const AddressForm = ({ countries, userStoredAddress = {} }: Props) => {
   const {
     handleSubmit,
     register,
@@ -32,7 +33,9 @@ export const AddressForm = ({ countries }: Props) => {
     reset,
   } = useForm<FormInputs>({
     defaultValues: {
-      //Todo: leer de la base de datos
+      //Leer de la base de datos
+      ...userStoredAddress,
+      rememberAddress: false,
     },
   });
   const setAddress = useAddressStore((state) => state.setAddress);
@@ -44,20 +47,20 @@ export const AddressForm = ({ countries }: Props) => {
   const onSubmit = (data: FormInputs) => {
     const { rememberAddress, ...restAddress } = data;
 
-    // guardar la dirección en el store
+    // guarda en el store
     setAddress(data);
 
     if (rememberAddress) {
-      // guardar en la db
+      // guarda en la db
       setUserAddress(restAddress, session!.user.id);
     } else {
-      // eliminar de la db
+      // elimina de la db
       deleteUserAddress(session!.user.id);
     }
   };
 
   useEffect(() => {
-    // cargar dirección del store
+    // carga dirección en el form desde el store (si existe)
     if (address.firstName) {
       reset(address);
     }
