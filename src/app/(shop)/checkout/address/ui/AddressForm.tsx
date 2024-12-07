@@ -5,7 +5,7 @@ import { useForm } from "react-hook-form";
 import { Country } from "@/interfaces";
 import { useAddressStore } from "@/store";
 import { useEffect } from "react";
-import { setUserAddress } from "@/actions";
+import { deleteUserAddress, setUserAddress } from "@/actions";
 import { useSession } from "next-auth/react";
 
 type FormInputs = {
@@ -17,7 +17,7 @@ type FormInputs = {
   city: string;
   country: string;
   phone: string;
-  remenberAddress: boolean;
+  rememberAddress: boolean;
 };
 
 interface Props {
@@ -42,15 +42,22 @@ export const AddressForm = ({ countries }: Props) => {
   const { data: session } = useSession({ required: true });
 
   const onSubmit = (data: FormInputs) => {
-    const { remenberAddress, ...restAddress } = data;
+    const { rememberAddress, ...restAddress } = data;
+
+    // guardar la dirección en el store
     setAddress(data);
 
-    if (remenberAddress) {
+    if (rememberAddress) {
+      // guardar en la db
       setUserAddress(restAddress, session!.user.id);
+    } else {
+      // eliminar de la db
+      deleteUserAddress(session!.user.id);
     }
   };
 
   useEffect(() => {
+    // cargar dirección del store
     if (address.firstName) {
       reset(address);
     }
@@ -158,7 +165,7 @@ export const AddressForm = ({ countries }: Props) => {
               type="checkbox"
               className="border-gray-500 before:content[''] peer relative h-5 w-5 cursor-pointer appearance-none rounded-md border border-blue-gray-200 transition-all before:absolute before:top-2/4 before:left-2/4 before:block before:h-12 before:w-12 before:-translate-y-2/4 before:-translate-x-2/4 before:rounded-full before:bg-blue-gray-500 before:opacity-0 before:transition-opacity checked:border-blue-500 checked:bg-blue-500 checked:before:bg-blue-500 hover:before:opacity-10"
               id="checkbox"
-              {...register("remenberAddress")}
+              {...register("rememberAddress")}
             />
             <div className="pointer-events-none absolute top-2/4 left-2/4 -translate-y-2/4 -translate-x-2/4 text-white opacity-0 transition-opacity peer-checked:opacity-100">
               <svg
