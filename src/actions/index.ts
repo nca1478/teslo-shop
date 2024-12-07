@@ -13,3 +13,4 @@ export * from "./country/get-countries";
 
 // address
 export * from "./address/set-user-address";
+export * from "./address/delete-user-address";

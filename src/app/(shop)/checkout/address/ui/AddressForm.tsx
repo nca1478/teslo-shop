@@ -5,6 +5,8 @@ import { useForm } from "react-hook-form";
 import { Country } from "@/interfaces";
 import { useAddressStore } from "@/store";
 import { useEffect } from "react";
+import { setUserAddress } from "@/actions";
+import { useSession } from "next-auth/react";
 
 type FormInputs = {
   firstName: string;
@@ -36,8 +38,16 @@ export const AddressForm = ({ countries }: Props) => {
   const setAddress = useAddressStore((state) => state.setAddress);
   const address = useAddressStore((state) => state.address);
 
+  // obtener datos del usuario. si no hay sessión, entonces redirige a la vista de login
+  const { data: session } = useSession({ required: true });
+
   const onSubmit = (data: FormInputs) => {
+    const { remenberAddress, ...restAddress } = data;
     setAddress(data);
+
+    if (remenberAddress) {
+      setUserAddress(restAddress, session!.user.id);
+    }
   };
 
   useEffect(() => {
