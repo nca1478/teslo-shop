@@ -4,9 +4,12 @@ export * from "./auth/logout";
 export * from "./auth/register";
 
 // product
-export { getPaginatedProductsWithImages } from "./product/product-pagination";
-export { getProductBySlug } from "./product/get-product-by-slug";
-export { getStockBySlug } from "./product/get-stock-by-slug";
+export * from "./product/product-pagination";
+export * from "./product/get-product-by-slug";
+export * from "./product/get-stock-by-slug";
 
 // country
-export { getCountries } from "./country/get-countries";
+export * from "./country/get-countries";
+
+// address
+export * from "./address/set-user-address";
