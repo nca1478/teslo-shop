@@ -10,6 +10,7 @@ async function main() {
   // await prisma.productImage.deleteMany();
 
   // Alternativa #2 - resetea también los id de ProductImage
+  await prisma.userAddress.deleteMany();
   await prisma.user.deleteMany();
   await prisma.country.deleteMany();
 

@@ -159,8 +159,8 @@ export const AddressForm = ({ countries, userStoredAddress = {} }: Props) => {
         />
       </div>
 
-      {/* Checkbox ¿Recordar dirección? */}
       <div className="flex flex-col mb-2 sm:mt-1">
+        {/* Checkbox ¿Recordar dirección? */}
         <div className="inline-flex items-center mb-10">
           <label
             className="relative flex cursor-pointer items-center rounded-full p-3"
