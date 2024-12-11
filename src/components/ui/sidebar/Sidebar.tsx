@@ -13,20 +13,27 @@ import {
   IoShirtOutline,
   IoTicketOutline,
 } from "react-icons/io5";
-import { useCartStore, useUIStore } from "@/store";
 import { logout } from "@/actions";
+import { useAddressStore, useCartStore, useUIStore } from "@/store";
 
 export const Sidebar = () => {
   const isSideMenuOpen = useUIStore((state) => state.isSideMenuOpen);
-  const removeAllProducts = useCartStore((state) => state.removeAllProducts);
   const closeMenu = useUIStore((state) => state.closeSideMenu);
+  const removeAllProducts = useCartStore((state) => state.removeAllProducts);
+  const removeCurrentAddress = useAddressStore(
+    (state) => state.removeCurrentAddress
+  );
+
   const { data: session } = useSession();
   const isAuthenticated = !!session?.user;
   const isAdmin = session?.user.role === "admin";
 
   const handleLogout = async () => {
     await logout();
+
+    // Limpiar store (productos y direcciones)
     removeAllProducts();
+    removeCurrentAddress();
 
     // recargar vista (para actualizar menu) y redirect a home
     window.location.reload();
