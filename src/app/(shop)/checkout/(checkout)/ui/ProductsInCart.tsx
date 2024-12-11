@@ -49,7 +49,7 @@ export const ProductsInCart = () => {
 
             {/* Subtotal */}
             <p className="font-bold">
-              Subtotal: {currencyFormat(product.price * product.quantity)}
+              {currencyFormat(product.price * product.quantity)}
             </p>
           </div>
         </div>
