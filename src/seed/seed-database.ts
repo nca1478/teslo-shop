@@ -6,14 +6,18 @@ async function main() {
   // ========================== Borrar registros previos ===========================
   // await Promise.all([
 
-  // Alternativa #1 - sin reset de id
-  // await prisma.productImage.deleteMany();
+  await prisma.orderAddress.deleteMany();
+  await prisma.orderItem.deleteMany();
+  await prisma.order.deleteMany();
 
-  // Alternativa #2 - resetea también los id de ProductImage
   await prisma.userAddress.deleteMany();
   await prisma.user.deleteMany();
   await prisma.country.deleteMany();
 
+  // Alternativa #1 - sin reset de id
+  // await prisma.productImage.deleteMany();
+
+  // Alternativa #2 - resetea también los id de ProductImage
   await prisma.$executeRaw`TRUNCATE TABLE ONLY public."ProductImage" RESTART IDENTITY CASCADE;`;
   await prisma.product.deleteMany();
   await prisma.category.deleteMany();
