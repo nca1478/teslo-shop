@@ -44,7 +44,7 @@ export const ProductsInCart = () => {
 
             {/* Precio Producto + Cantidad */}
             <p>
-              ${product.price} x {product.quantity}
+              ${product.price} x {product.quantity} Und
             </p>
 
             {/* Subtotal */}
