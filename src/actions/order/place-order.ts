@@ -2,6 +2,7 @@
 
 import { auth } from "@/config/auth/auth.config";
 import type { Address, Size } from "@/interfaces";
+import prisma from "@/lib/prisma";
 
 interface ProductToOrder {
   productId: string;
@@ -16,6 +17,7 @@ export const placeOrder = async (
   const session = await auth();
   const userId = session?.user.id;
 
+  // Verificar sesión de usuario
   if (!userId) {
     return {
       ok: false,
@@ -23,5 +25,15 @@ export const placeOrder = async (
     };
   }
 
-  console.log({ productIds, address, userId });
+  // Obtener información de los productos
+  const products = await prisma.product.findMany({
+    where: {
+      id: {
+        in: productIds.map((p) => p.productId),
+      },
+    },
+  });
+
+  // Calcular los montos
+  const itemsInOrder = productIds.reduce((count, p) => count + p.quantity, 0);
 };
