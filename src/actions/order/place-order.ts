@@ -57,4 +57,9 @@ export const placeOrder = async (
   );
 
   // crear la transacción de la bd
+  const prismaTx = await prisma.$transaction(async (tx) => {
+    // 1. actualizar el stock de los productos
+    // 2. crear la orden - orderItem
+    // 3. crear la dirección de la orden
+  });
 };
