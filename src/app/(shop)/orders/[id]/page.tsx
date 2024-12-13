@@ -3,6 +3,7 @@ import Image from "next/image";
 import { IoCardOutline } from "react-icons/io5";
 import { Title } from "@/components";
 import { initialData } from "@/seed/seed";
+import { getOrderById } from "@/actions";
 
 const productsInCart = [
   initialData.products[0],
@@ -16,6 +17,9 @@ interface Props {
 
 export default async function OrdersPage({ params }: Props) {
   const { id } = await params;
+  const order = await getOrderById(id);
+
+  console.log(order);
 
   // Todo: verificar
   // redirect(/)
@@ -23,7 +27,7 @@ export default async function OrdersPage({ params }: Props) {
   return (
     <div className="flex justify-center items-center mb-72 px-10 sm:px-0">
       <div className="flex flex-col w-[1000px]">
-        <Title title={`Orden #${id}`} />
+        <Title title={`Orden #${id.split("-").at(-1)}`} />
 
         <div className="grid grid-cols-1 sm:grid-cols-2 gap-10">
           {/* Carrito */}
