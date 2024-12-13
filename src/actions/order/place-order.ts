@@ -1,8 +1,8 @@
 "use server";
 
-import { auth } from "@/config/auth/auth.config";
-import type { Address, Size } from "@/interfaces";
 import prisma from "@/lib/prisma";
+import type { Address, Size } from "@/interfaces";
+import { auth } from "@/config/auth/auth.config";
 
 interface ProductToOrder {
   productId: string;
@@ -69,7 +69,6 @@ export const placeOrder = async (
         itemsInOrder,
         userId,
 
-        //relacion con OrdenItem (detalles de la orden)
         OrderItem: {
           createMany: {
             data: productIds.map((p) => ({
@@ -86,8 +85,16 @@ export const placeOrder = async (
     });
 
     // 3. crear la dirección de la orden
+    const { country, ...restAddress } = address;
+    const orderAddress = await tx.orderAddress.create({
+      data: {
+        ...restAddress,
+        orderId: order.id,
+        countryId: country,
+      },
+    });
 
-    return { order, updatedProducts: [], orderAddress: {} };
+    return { order, updatedProducts: [], orderAddress };
   });
 
   return prismaTx;
