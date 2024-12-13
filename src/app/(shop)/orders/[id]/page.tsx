@@ -1,9 +1,10 @@
 import clsx from "clsx";
 import Image from "next/image";
-import { IoCardOutline } from "react-icons/io5";
-import { Title } from "@/components";
-import { getOrderById } from "@/actions";
 import { redirect } from "next/navigation";
+import { IoCardOutline } from "react-icons/io5";
+
+import { PayPalButton, Title } from "@/components";
+import { getOrderById } from "@/actions";
 import { currencyFormat } from "@/utils";
 
 interface Props {
@@ -122,21 +123,9 @@ export default async function OrdersPage({ params }: Props) {
               </span>
             </div>
 
+            {/* Botón de Paypal */}
             <div className="mt-5 mb-2 w-full">
-              <div
-                className={clsx(
-                  "flex items-center rounded-lg py-2 px-3.5 text-xs font-bold text-white mb-5",
-                  {
-                    "bg-red-500": order!.isPaid === false,
-                    "bg-green-700": order!.isPaid === true,
-                  }
-                )}
-              >
-                <IoCardOutline size={30} />
-                <span className="mx-2">
-                  {order?.isPaid ? "Pagada" : "No Pagada"}
-                </span>
-              </div>
+              <PayPalButton />
             </div>
           </div>
         </div>

@@ -18,4 +18,7 @@ export { Sidebar } from "./ui/sidebar/Sidebar";
 export { TopMenu } from "./ui/top-menu/TopMenu";
 
 // Providers
-export { AuthProvider } from "./providers/AuthProvider";
+export { Providers } from "./providers/Providers";
+
+// Paypal
+export { PayPalButton } from "./paypal/PayPalButton";
