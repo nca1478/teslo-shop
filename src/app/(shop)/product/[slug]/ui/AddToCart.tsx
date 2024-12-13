@@ -4,6 +4,7 @@ import { useState } from "react";
 import { QuantitySelector, SizeSelector } from "@/components";
 import { CartProduct, Product, Size } from "@/interfaces";
 import { useCartStore } from "@/store";
+import clsx from "clsx";
 
 interface Props {
   product: Product;
@@ -58,7 +59,14 @@ export const AddToCart = ({ product }: Props) => {
       />
 
       {/* Button */}
-      <button onClick={addToCart} className="btn-primary my-5">
+      <button
+        onClick={addToCart}
+        className={clsx("my-5", {
+          "btn-primary": quantity <= product.inStock,
+          "btn-disabled": quantity > product.inStock,
+        })}
+        disabled={quantity > product.inStock}
+      >
         Agregar al carrito
       </button>
     </>
