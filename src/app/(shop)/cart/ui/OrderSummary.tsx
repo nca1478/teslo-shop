@@ -56,7 +56,10 @@ export const OrderSummary = () => {
             Siguiente
           </Link>
         ) : (
-          <button className="flex w-full btn-disabled justify-center" disabled>
+          <button
+            className="flex w-full btn-disabled cursor-not-allowed justify-center"
+            disabled
+          >
             Siguiente
           </button>
         )}

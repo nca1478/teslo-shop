@@ -63,7 +63,7 @@ export const AddToCart = ({ product }: Props) => {
         onClick={addToCart}
         className={clsx("my-5", {
           "btn-primary": quantity <= product.inStock,
-          "btn-disabled": quantity > product.inStock,
+          "btn-disabled cursor-not-allowed": quantity > product.inStock,
         })}
         disabled={quantity > product.inStock}
       >
