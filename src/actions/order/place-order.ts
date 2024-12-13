@@ -88,7 +88,7 @@ export const placeOrder = async (
       updatedProducts.forEach((product) => {
         if (product.inStock < 0) {
           throw new Error(
-            `El producto \"${product.title}\" no tiene existencia suficiente`
+            `\"${product.title}\" no tiene existencia suficiente`
           );
         }
       });

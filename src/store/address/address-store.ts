@@ -1,5 +1,5 @@
 import { create } from "zustand";
-import { createJSONStorage, devtools, persist } from "zustand/middleware";
+import { createJSONStorage, persist } from "zustand/middleware";
 
 interface State {
   address: {
@@ -18,44 +18,42 @@ interface State {
 }
 
 export const useAddressStore = create<State>()(
-  devtools(
-    persist(
-      (set) => ({
-        address: {
-          firstName: "",
-          lastName: "",
-          address: "",
-          address2: "",
-          postalCode: "",
-          country: "",
-          phone: "",
-          city: "",
-        },
+  persist(
+    (set) => ({
+      address: {
+        firstName: "",
+        lastName: "",
+        address: "",
+        address2: "",
+        postalCode: "",
+        country: "",
+        phone: "",
+        city: "",
+      },
 
-        // Métodos
-        setAddress: (address) => {
-          set({ address });
-        },
+      // Métodos
+      setAddress: (address) => {
+        set({ address });
+      },
 
-        removeCurrentAddress: () => {
-          set({
-            address: {
-              firstName: "",
-              lastName: "",
-              address: "",
-              address2: "",
-              postalCode: "",
-              country: "",
-              phone: "",
-              city: "",
-            },
-          });
-        },
-      }),
-      {
-        name: "address-storage",
-        storage: createJSONStorage(() => localStorage),
-      }
-    )
+      removeCurrentAddress: () => {
+        set({
+          address: {
+            firstName: "",
+            lastName: "",
+            address: "",
+            address2: "",
+            postalCode: "",
+            country: "",
+            phone: "",
+            city: "",
+          },
+        });
+      },
+    }),
+    {
+      name: "address-storage",
+      storage: createJSONStorage(() => localStorage),
+    }
   )
 );

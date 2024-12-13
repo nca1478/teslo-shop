@@ -19,7 +19,7 @@ import { useAddressStore, useCartStore, useUIStore } from "@/store";
 export const Sidebar = () => {
   const isSideMenuOpen = useUIStore((state) => state.isSideMenuOpen);
   const closeMenu = useUIStore((state) => state.closeSideMenu);
-  const removeAllProducts = useCartStore((state) => state.removeAllProducts);
+  const clearCart = useCartStore((state) => state.clearCart);
   const removeCurrentAddress = useAddressStore(
     (state) => state.removeCurrentAddress
   );
@@ -32,7 +32,7 @@ export const Sidebar = () => {
     await logout();
 
     // Limpiar store (productos y direcciones)
-    removeAllProducts();
+    clearCart();
     removeCurrentAddress();
 
     // recargar vista (para actualizar menu) y redirect a home
