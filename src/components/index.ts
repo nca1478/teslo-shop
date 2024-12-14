@@ -16,6 +16,7 @@ export { Pagination } from "./ui/pagination/Pagination";
 export { Title } from "./ui/title/Title";
 export { Sidebar } from "./ui/sidebar/Sidebar";
 export { TopMenu } from "./ui/top-menu/TopMenu";
+export { Spinner } from "./ui/spinner/Spinner";
 
 // Providers
 export { Providers } from "./providers/Providers";
