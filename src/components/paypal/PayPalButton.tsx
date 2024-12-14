@@ -50,11 +50,11 @@ export const PayPalButton = ({ orderId, amount }: Props) => {
     data: OnApproveData,
     actions: OnApproveActions
   ): Promise<void> => {
-    console.log("on approve!!!");
     const details = await actions.order?.capture();
+
     if (!details) return;
 
-    const checkPayment = await paypalCheckPayment(details.id as string);
+    await paypalCheckPayment(details.id as string);
   };
 
   return <PayPalButtons createOrder={createOrder} onApprove={onApprove} />;
