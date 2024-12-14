@@ -45,6 +45,7 @@ export interface Paypal {
 }
 
 export interface PurchaseUnit {
+  invoice_id: string;
   reference_id: string;
   amount: Amount;
   payee: Payee;
