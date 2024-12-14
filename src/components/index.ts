@@ -23,3 +23,6 @@ export { Providers } from "./providers/Providers";
 
 // Paypal
 export { PayPalButton } from "./paypal/PayPalButton";
+
+// Orders
+export { OrderStatus } from "./orders/OrderStatus";
