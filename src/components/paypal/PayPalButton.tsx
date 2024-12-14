@@ -3,6 +3,7 @@
 import { PayPalButtons, usePayPalScriptReducer } from "@paypal/react-paypal-js";
 import { CreateOrderData, CreateOrderActions } from "@paypal/paypal-js";
 import { Spinner } from "../ui/spinner/Spinner";
+import { setTransactionId } from "@/actions";
 
 interface Props {
   orderId: string;
@@ -14,14 +15,6 @@ export const PayPalButton = ({ orderId, amount }: Props) => {
   const rountedAmount = Math.round(amount * 100) / 100; // 123.20
 
   if (isPending) {
-    // alternativa
-    // return (
-    //   <div className="animate-pulse mb-16">
-    //     <div className="h-11 bg-gray-300 rounded"></div>
-    //     <div className="h-11 bg-gray-300 rounded mt-4"></div>
-    //   </div>
-    // );
-
     return <Spinner />;
   }
 
@@ -39,7 +32,11 @@ export const PayPalButton = ({ orderId, amount }: Props) => {
       ],
     });
 
-    console.log({ transactionId });
+    const order = await setTransactionId(orderId, transactionId);
+
+    if (!order) {
+      throw new Error("No se pudo actualizar la orden");
+    }
 
     return transactionId;
   };
