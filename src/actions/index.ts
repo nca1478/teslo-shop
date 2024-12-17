@@ -32,3 +32,4 @@ export * from "./user/get-paginated-users";
 
 // admin
 export * from "./order/admin/get-orders";
+export * from "./order/admin/get-paginated-orders";

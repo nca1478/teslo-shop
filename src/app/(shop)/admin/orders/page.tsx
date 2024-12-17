@@ -1,16 +1,29 @@
 export const revalidate = 0;
 
 // https://tailwindcomponents.com/component/hoverable-table
-import { getOrders } from "@/actions";
-import { Title } from "@/components";
+import { getPaginatedOrders } from "@/actions";
+import { Pagination, Title } from "@/components";
 import { extractTimeFromDate, singleDateFormat } from "@/utils";
 
 import Link from "next/link";
 import { redirect } from "next/navigation";
 import { IoCardOutline } from "react-icons/io5";
 
-export default async function OrdersPage() {
-  const { ok, orders = [] } = await getOrders();
+interface Props {
+  searchParams: Promise<{ page?: string }>;
+}
+
+export default async function OrdersPage({ searchParams }: Props) {
+  const { page } = await searchParams;
+  const pageParam = page ? parseInt(page) : 1;
+
+  const {
+    orders = [],
+    totalPages = 1,
+    ok,
+  } = await getPaginatedOrders({
+    page: pageParam,
+  });
 
   if (!ok) {
     redirect("/auth/login");
@@ -18,7 +31,7 @@ export default async function OrdersPage() {
 
   return (
     <>
-      <Title title="Orders" />
+      <Title title="Ordenes" />
 
       <div className="mb-10">
         <table className="min-w-full">
@@ -105,6 +118,9 @@ export default async function OrdersPage() {
             ))}
           </tbody>
         </table>
+
+        {/* Paginación */}
+        {orders.length > 0 && <Pagination totalPages={totalPages} />}
       </div>
     </>
   );

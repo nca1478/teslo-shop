@@ -15,7 +15,7 @@ export default async function UsersPage({ searchParams }: Props) {
 
   const {
     users = [],
-    totalPages = 0,
+    totalPages = 1,
     ok,
   } = await getPaginatedUsers({
     page: pageParam,
@@ -33,7 +33,8 @@ export default async function UsersPage({ searchParams }: Props) {
         <UsersTable users={users} />
       </div>
 
-      <Pagination totalPages={totalPages} />
+      {/* Paginación */}
+      {users.length > 0 && <Pagination totalPages={totalPages} />}
     </>
   );
 }

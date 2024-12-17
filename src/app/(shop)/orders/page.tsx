@@ -19,7 +19,7 @@ export default async function OrdersPage({ searchParams }: Props) {
 
   const {
     orders = [],
-    totalPages = 0,
+    totalPages = 1,
     ok,
   } = await getPaginatedOrdersByUser({
     page: pageParam,
@@ -31,7 +31,7 @@ export default async function OrdersPage({ searchParams }: Props) {
 
   return (
     <>
-      <Title title="Orders" />
+      <Title title="Ordenes" />
 
       <div className="mb-10">
         <table className="min-w-full">
@@ -119,7 +119,8 @@ export default async function OrdersPage({ searchParams }: Props) {
           </tbody>
         </table>
 
-        <Pagination totalPages={totalPages} />
+        {/* Paginación */}
+        {orders.length > 0 && <Pagination totalPages={totalPages} />}
       </div>
     </>
   );
