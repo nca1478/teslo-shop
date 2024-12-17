@@ -61,7 +61,7 @@ export const PlaceOrder = () => {
   return (
     <div className="bg-white rounded-xl shadow-xl p-7">
       {/* Dirección de Entrega */}
-      <h2 className="text-2xl mb-2">Dirección de entrega</h2>
+      <h2 className="text-2xl mb-2 font-bold">Dirección de entrega</h2>
       <div className="mb-10">
         <p className="text-xl">
           {address.firstName} {address.lastName}
@@ -79,7 +79,7 @@ export const PlaceOrder = () => {
       <div className="w-full h-0.5 rounded bg-gray-200 mb-10" />
 
       {/* Resumen de la Orden */}
-      <h2 className="text-2xl mb-2">Resumen de orden</h2>
+      <h2 className="text-2xl mb-2 font-bold">Resumen de orden</h2>
       <div className="grid grid-cols-2">
         <span>Cantidad</span>
         <span className="text-right">

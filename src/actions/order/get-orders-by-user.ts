@@ -25,6 +25,9 @@ export const getOrdersByUser = async () => {
         },
       },
     },
+    orderBy: {
+      createdAt: "desc",
+    },
   });
 
   return {

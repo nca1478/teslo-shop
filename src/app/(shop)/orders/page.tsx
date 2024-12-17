@@ -3,6 +3,7 @@ export const revalidate = 0;
 // https://tailwindcomponents.com/component/hoverable-table
 import { getOrdersByUser } from "@/actions";
 import { Title } from "@/components";
+import { extractTimeFromDate, singleDateFormat } from "@/utils";
 
 import Link from "next/link";
 import { redirect } from "next/navigation";
@@ -25,7 +26,7 @@ export default async function OrdersPage() {
             <tr>
               <th
                 scope="col"
-                className="text-sm font-medium text-gray-900 px-6 py-4 text-left"
+                className="text-sm font-medium text-gray-900 px-4 py-4 text-left"
               >
                 #ID
               </th>
@@ -34,6 +35,18 @@ export default async function OrdersPage() {
                 className="text-sm font-medium text-gray-900 px-6 py-4 text-left"
               >
                 Nombre completo
+              </th>
+              <th
+                scope="col"
+                className="text-sm font-medium text-gray-900 px-6 py-4 text-left"
+              >
+                Fecha
+              </th>
+              <th
+                scope="col"
+                className="text-sm font-medium text-gray-900 px-6 py-4 text-left"
+              >
+                Hora
               </th>
               <th
                 scope="col"
@@ -55,11 +68,17 @@ export default async function OrdersPage() {
                 key={order.id}
                 className="bg-white border-b transition duration-300 ease-in-out hover:bg-gray-100"
               >
-                <td className="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-900">
+                <td className="px-4 py-4 whitespace-nowrap text-sm font-medium text-gray-900">
                   {order.id.split("-").at(-1)}
                 </td>
                 <td className="text-sm text-gray-900 font-light px-6 py-4 whitespace-nowrap">
                   {order.OrderAddress?.firstName} {order.OrderAddress?.lastName}
+                </td>
+                <td className="text-sm text-gray-900 font-light px-6 py-4 whitespace-nowrap">
+                  {singleDateFormat(order.createdAt)}
+                </td>
+                <td className="text-sm text-gray-900 font-light px-6 py-4 whitespace-nowrap">
+                  {extractTimeFromDate(order.createdAt)}
                 </td>
                 <td className="flex items-center text-sm  text-gray-900 font-light px-6 py-4 whitespace-nowrap">
                   {order.isPaid ? (

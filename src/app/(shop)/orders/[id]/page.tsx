@@ -67,7 +67,7 @@ export default async function OrdersPage({ params }: Props) {
 
           {/* Checkout - Resumen de orden */}
           <div className="bg-white rounded-xl shadow-xl p-7">
-            <h2 className="text-2xl mb-2">Dirección de entrega</h2>
+            <h2 className="text-2xl mb-2 font-bold">Dirección de entrega</h2>
             <div className="mb-10">
               <p className="text-xl">{`${address!.firstName} ${
                 address!.lastName
@@ -84,7 +84,7 @@ export default async function OrdersPage({ params }: Props) {
             {/* Divider */}
             <div className="w-full h-0.5 rounded bg-gray-200 mb-10" />
 
-            <h2 className="text-2xl mb-2">Resumen de orden</h2>
+            <h2 className="text-2xl mb-2 font-bold">Resumen de orden</h2>
 
             <div className="grid grid-cols-2">
               <span>Cantidad</span>

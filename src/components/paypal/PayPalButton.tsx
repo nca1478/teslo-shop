@@ -16,8 +16,8 @@ interface Props {
 }
 
 export const PayPalButton = ({ orderId, amount }: Props) => {
-  const [{ isPending }] = usePayPalScriptReducer();
-  const rountedAmount = Math.round(amount * 100) / 100; // 123.20
+  const [{ isPending }] = usePayPalScriptReducer(); // controlar carga del botón
+  const rountedAmount = Math.round(amount * 100) / 100; // redondeo xxxx.xx
 
   if (isPending) {
     return <Spinner />;
@@ -27,6 +27,7 @@ export const PayPalButton = ({ orderId, amount }: Props) => {
     data: CreateOrderData,
     actions: CreateOrderActions
   ): Promise<string> => {
+    // obtener el transactionId desde PAYPAL
     const transactionId = await actions.order.create({
       intent: "CAPTURE",
       purchase_units: [
@@ -37,6 +38,7 @@ export const PayPalButton = ({ orderId, amount }: Props) => {
       ],
     });
 
+    // actualizar el transactionId en la orden
     const order = await setTransactionId(orderId, transactionId);
 
     if (!order) {
@@ -50,10 +52,12 @@ export const PayPalButton = ({ orderId, amount }: Props) => {
     data: OnApproveData,
     actions: OnApproveActions
   ): Promise<void> => {
+    // obtener el pago de la orden desde PAYPAL
     const details = await actions.order?.capture();
 
     if (!details) return;
 
+    // verificar pago de la orden (con el transactionId)
     await paypalCheckPayment(details.id as string);
   };
 

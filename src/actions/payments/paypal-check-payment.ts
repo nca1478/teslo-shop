@@ -5,6 +5,7 @@ import prisma from "@/lib/prisma";
 import { revalidatePath } from "next/cache";
 
 export const paypalCheckPayment = async (paypalTransactionId: string) => {
+  // obtener el PAYPAL auth o bearer token
   const authToken = await getPayPalBearerToken();
   if (!authToken) {
     return {
@@ -13,6 +14,7 @@ export const paypalCheckPayment = async (paypalTransactionId: string) => {
     };
   }
 
+  // verificar el pago en PAYPAL
   const resp = await verifyPayPalPayment(paypalTransactionId, authToken);
 
   if (!resp) {
@@ -32,7 +34,7 @@ export const paypalCheckPayment = async (paypalTransactionId: string) => {
     };
   }
 
-  // Actualizar la base de datos
+  // Actualizar la base de datos (isPaid y paitAt)
   try {
     await prisma.order.update({
       where: { id: orderId },
@@ -49,7 +51,7 @@ export const paypalCheckPayment = async (paypalTransactionId: string) => {
       ok: true,
     };
   } catch (error) {
-    console.log(error);
+    console.log(error); // recomandacion: utilizar winston para logs
     return {
       ok: false,
       message: "El pago no se pudo realizar",

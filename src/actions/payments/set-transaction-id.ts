@@ -8,12 +8,8 @@ export const setTransactionId = async (
 ) => {
   try {
     const order = await prisma.order.update({
-      where: {
-        id: orderId,
-      },
-      data: {
-        transactionId,
-      },
+      where: { id: orderId },
+      data: { transactionId },
     });
 
     if (!order) {
