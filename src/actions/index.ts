@@ -34,3 +34,6 @@ export * from "./user/change-user-role";
 // admin
 export * from "./order/admin/get-orders";
 export * from "./order/admin/get-paginated-orders";
+
+// categories
+export * from "./category/get-categories";
