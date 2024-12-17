@@ -4,6 +4,7 @@ import { z } from "zod";
 import { Gender, Product } from "@prisma/client";
 import prisma from "@/lib/prisma";
 import { Size } from "@/interfaces";
+import { revalidatePath } from "next/cache";
 
 // Validación de datos del formulario
 const productSchema = z.object({
@@ -30,7 +31,6 @@ export const createUpdateProduct = async (formData: FormData) => {
   const productParsed = productSchema.safeParse(data);
 
   if (!productParsed.success) {
-    console.log(productParsed.error);
     return { ok: false };
   }
 
@@ -60,19 +60,31 @@ export const createUpdateProduct = async (formData: FormData) => {
             },
           },
         });
-
-        console.log({ updatedProduct: product });
       } else {
         // Crear
+        product = await prisma.product.create({
+          data: {
+            ...rest,
+            sizes: {
+              set: rest.sizes as Size[],
+            },
+            tags: {
+              set: tagsArray,
+            },
+          },
+        });
       }
 
       return {
-        ok: true,
+        product,
       };
     });
 
+    // Todo: RevalidatePaths
+
     return {
       ok: true,
+      product: prismaTx.product,
     };
   } catch (error) {
     console.log(error);

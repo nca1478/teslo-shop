@@ -7,7 +7,7 @@ import Image from "next/image";
 import { useForm } from "react-hook-form";
 
 interface Props {
-  product: Product & { ProductImage?: ProductImage[] }; // & adicionalmente va a tener ProductImage[] (optional)
+  product: Partial<Product> & { ProductImage?: ProductImage[] }; // & adicionalmente va a tener ProductImage[] (optional)
   categories: Category[];
 }
 
@@ -36,7 +36,7 @@ export const ProductForm = ({ product, categories }: Props) => {
   } = useForm<FormInputs>({
     defaultValues: {
       ...product,
-      tags: product.tags.join(", "),
+      tags: product.tags?.join(", "),
       sizes: product.sizes ?? [],
     },
   });
@@ -60,7 +60,10 @@ export const ProductForm = ({ product, categories }: Props) => {
     const formData = new FormData();
     const { ...productToSave } = data;
 
-    formData.append("id", product.id ?? "");
+    if (product.id) {
+      formData.append("id", product.id ?? "");
+    }
+
     formData.append("title", productToSave.title);
     formData.append("slug", productToSave.slug);
     formData.append("description", productToSave.description);
@@ -89,6 +92,7 @@ export const ProductForm = ({ product, categories }: Props) => {
             type="text"
             className="p-2 border rounded-md bg-gray-200"
             {...register("title", { required: true })}
+            autoFocus
           />
         </div>
 
@@ -116,15 +120,6 @@ export const ProductForm = ({ product, categories }: Props) => {
             type="number"
             className="p-2 border rounded-md bg-gray-200"
             {...register("price", { required: true, min: 0 })}
-          />
-        </div>
-
-        <div className="flex flex-col mb-2">
-          <span className="font-bold">Existencia</span>
-          <input
-            type="number"
-            className="p-2 border rounded-md bg-gray-200"
-            {...register("inStock", { required: true, min: 0 })}
           />
         </div>
 
@@ -192,7 +187,16 @@ export const ProductForm = ({ product, categories }: Props) => {
             ))}
           </div>
 
-          <div className="flex flex-col my-2">
+          <div className="flex flex-col mb-2">
+            <span className="font-bold">Existencia</span>
+            <input
+              type="number"
+              className="p-2 border rounded-md bg-gray-200"
+              {...register("inStock", { required: true, min: 0 })}
+            />
+          </div>
+
+          <div className="flex flex-col mb-2">
             <span className="font-bold">Fotos</span>
             <input
               type="file"
