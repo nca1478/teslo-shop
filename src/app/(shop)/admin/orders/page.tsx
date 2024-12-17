@@ -1,7 +1,7 @@
 export const revalidate = 0;
 
 // https://tailwindcomponents.com/component/hoverable-table
-import { getPaginatedOrders } from "@/actions";
+import { getOrders } from "@/actions";
 import { Title } from "@/components";
 import { extractTimeFromDate, singleDateFormat } from "@/utils";
 
@@ -10,7 +10,7 @@ import { redirect } from "next/navigation";
 import { IoCardOutline } from "react-icons/io5";
 
 export default async function OrdersPage() {
-  const { ok, orders = [] } = await getPaginatedOrders();
+  const { ok, orders = [] } = await getOrders();
 
   if (!ok) {
     redirect("/auth/login");

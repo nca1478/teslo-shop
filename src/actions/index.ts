@@ -20,7 +20,7 @@ export * from "./address/set-user-address";
 export * from "./order/place-order";
 export * from "./order/get-order-by-id";
 export * from "./order/get-orders-by-user";
-export * from "./order/get-paginated-orders";
+export * from "./order/get-paginated-orders-by-user";
 
 // payments
 export * from "./payments/set-transaction-id";
@@ -29,3 +29,6 @@ export * from "./payments/paypal-check-payment";
 // user
 export * from "./user/get-users";
 export * from "./user/get-paginated-users";
+
+// admin
+export * from "./order/admin/get-orders";
