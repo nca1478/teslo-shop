@@ -3,7 +3,7 @@
 import prisma from "@/lib/prisma";
 import { auth } from "@/config/auth/auth.config";
 
-export const getPaginatedOrders = async () => {
+export const getUsers = async () => {
   const session = await auth();
 
   if (session?.user.role !== "admin") {
@@ -13,22 +13,14 @@ export const getPaginatedOrders = async () => {
     };
   }
 
-  const orders = await prisma.order.findMany({
-    include: {
-      OrderAddress: {
-        select: {
-          firstName: true,
-          lastName: true,
-        },
-      },
-    },
+  const users = await prisma.user.findMany({
     orderBy: {
-      createdAt: "desc",
+      name: "asc",
     },
   });
 
   return {
     ok: true,
-    orders,
+    users,
   };
 };
