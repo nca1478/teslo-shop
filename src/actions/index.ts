@@ -4,9 +4,10 @@ export * from "./auth/logout";
 export * from "./auth/register";
 
 // product
-export * from "./product/product-pagination";
+export * from "./product/create-update-product";
 export * from "./product/get-product-by-slug";
 export * from "./product/get-stock-by-slug";
+export * from "./product/product-pagination";
 
 // country
 export * from "./country/get-countries";
