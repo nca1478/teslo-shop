@@ -4,6 +4,7 @@ export { SizeSelector } from "./product/size-selector/SizeSelector";
 export { ProductSlideshow } from "./product/slideshow/ProductSlideshow";
 export { ProductMobileSlideshow } from "./product/slideshow/ProductMobileSlideshow";
 export { StockLabel } from "./product/stock-label/StockLabel";
+export { ProductImage } from "./product/product-image/ProductImage";
 
 // Products
 export { ProductGrid } from "./products/product-grid/ProductGrid";

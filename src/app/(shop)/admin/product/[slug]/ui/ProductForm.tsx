@@ -29,7 +29,7 @@ export const ProductForm = ({ product, categories }: Props) => {
   const {
     handleSubmit,
     register,
-    formState: { isValid },
+    // formState: { isValid },
     getValues,
     setValue,
     watch,
@@ -60,6 +60,7 @@ export const ProductForm = ({ product, categories }: Props) => {
     const formData = new FormData();
     const { ...productToSave } = data;
 
+    // agregar si existe (es update) si no (es create)
     if (product.id) {
       formData.append("id", product.id ?? "");
     }

@@ -15,9 +15,15 @@ export const getProductBySlug = async (slug: string) => {
 
     if (!product) return null;
 
+    // verificar si el producto tiene imágenes
+    const images =
+      product.ProductImage.length > 0
+        ? product.ProductImage.map((image) => image.url)
+        : ["placeholder.png"];
+
     return {
       ...product,
-      images: product.ProductImage.map((image) => image.url),
+      images,
     };
   } catch (error) {
     if (error instanceof Error) {

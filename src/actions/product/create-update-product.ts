@@ -4,7 +4,6 @@ import { z } from "zod";
 import { Gender, Product } from "@prisma/client";
 import prisma from "@/lib/prisma";
 import { Size } from "@/interfaces";
-import { revalidatePath } from "next/cache";
 
 // Validación de datos del formulario
 const productSchema = z.object({
@@ -40,7 +39,7 @@ export const createUpdateProduct = async (formData: FormData) => {
   const { id, ...rest } = product;
 
   try {
-    const prismaTx = await prisma.$transaction(async (tx) => {
+    const prismaTx = await prisma.$transaction(async () => {
       let product: Product;
       const tagsArray = rest.tags
         .split(",")

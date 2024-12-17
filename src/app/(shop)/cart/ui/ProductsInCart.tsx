@@ -2,9 +2,8 @@
 
 import { useEffect, useState } from "react";
 import Link from "next/link";
-import Image from "next/image";
 
-import { QuantitySelector } from "@/components";
+import { ProductImage, QuantitySelector } from "@/components";
 import { useCartStore } from "@/store";
 
 export const ProductsInCart = () => {
@@ -28,8 +27,8 @@ export const ProductsInCart = () => {
       {productsInCart.map((product) => (
         // Se construye un key único, para los casos del mismo producto y tallas diferentes
         <div key={`${product.slug}-${product.size}`} className="flex mb-5">
-          <Image
-            src={`/products/${product.image}`}
+          <ProductImage
+            src={product.image}
             width={100}
             height={100}
             style={{
