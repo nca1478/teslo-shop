@@ -120,6 +120,15 @@ export const ProductForm = ({ product, categories }: Props) => {
         </div>
 
         <div className="flex flex-col mb-2">
+          <span className="font-bold">Existencia</span>
+          <input
+            type="number"
+            className="p-2 border rounded-md bg-gray-200"
+            {...register("inStock", { required: true, min: 0 })}
+          />
+        </div>
+
+        <div className="flex flex-col mb-2">
           <span className="font-bold">Tags</span>
           <input
             type="text"
