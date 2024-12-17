@@ -1,10 +1,11 @@
 "use client";
 
-import { Category, Product } from "@/interfaces";
+import { Category, Product, ProductImage } from "@/interfaces";
+import Image from "next/image";
 import { useForm } from "react-hook-form";
 
 interface Props {
-  product: Product;
+  product: Product & { ProductImage?: ProductImage[] }; // & adicionalmente va a tener ProductImage[] (optional)
   categories: Category[];
 }
 
@@ -47,7 +48,7 @@ export const ProductForm = ({ product, categories }: Props) => {
       {/* Textos */}
       <div className="w-full">
         <div className="flex flex-col mb-2">
-          <span>Título</span>
+          <span className="font-bold">Título</span>
           <input
             type="text"
             className="p-2 border rounded-md bg-gray-200"
@@ -56,7 +57,7 @@ export const ProductForm = ({ product, categories }: Props) => {
         </div>
 
         <div className="flex flex-col mb-2">
-          <span>Slug</span>
+          <span className="font-bold">Slug</span>
           <input
             type="text"
             className="p-2 border rounded-md bg-gray-200"
@@ -65,7 +66,7 @@ export const ProductForm = ({ product, categories }: Props) => {
         </div>
 
         <div className="flex flex-col mb-2">
-          <span>Descripción</span>
+          <span className="font-bold">Descripción</span>
           <textarea
             rows={5}
             className="p-2 border rounded-md bg-gray-200"
@@ -74,7 +75,7 @@ export const ProductForm = ({ product, categories }: Props) => {
         </div>
 
         <div className="flex flex-col mb-2">
-          <span>Price</span>
+          <span className="font-bold">Price</span>
           <input
             type="number"
             className="p-2 border rounded-md bg-gray-200"
@@ -83,7 +84,7 @@ export const ProductForm = ({ product, categories }: Props) => {
         </div>
 
         <div className="flex flex-col mb-2">
-          <span>Tags</span>
+          <span className="font-bold">Tags</span>
           <input
             type="text"
             className="p-2 border rounded-md bg-gray-200"
@@ -92,7 +93,7 @@ export const ProductForm = ({ product, categories }: Props) => {
         </div>
 
         <div className="flex flex-col mb-2">
-          <span>Gender</span>
+          <span className="font-bold">Gender</span>
           <select
             className="p-2 border rounded-md bg-gray-200"
             {...register("gender", { required: true })}
@@ -106,7 +107,7 @@ export const ProductForm = ({ product, categories }: Props) => {
         </div>
 
         <div className="flex flex-col mb-2">
-          <span>Categoria</span>
+          <span className="font-bold">Categoria</span>
           <select
             className="p-2 border rounded-md bg-gray-200"
             {...register("categoryId", { required: true })}
@@ -127,7 +128,7 @@ export const ProductForm = ({ product, categories }: Props) => {
       <div className="w-full">
         {/* As checkboxes */}
         <div className="flex flex-col">
-          <span>Tallas</span>
+          <span className="font-bold">Tallas</span>
           <div className="flex flex-wrap">
             {sizes.map((size) => (
               // bg-blue-500 text-white <--- si está seleccionado
@@ -140,14 +141,36 @@ export const ProductForm = ({ product, categories }: Props) => {
             ))}
           </div>
 
-          <div className="flex flex-col mb-2">
-            <span>Fotos</span>
+          <div className="flex flex-col my-2">
+            <span className="font-bold">Fotos</span>
             <input
               type="file"
               multiple
               className="p-2 border rounded-md bg-gray-200"
               accept="image/png, image/jpeg"
             />
+          </div>
+
+          <div className="grid grid-cols-1 sm:grid-cols-3 gap-3">
+            {product.ProductImage?.map((image) => (
+              <div key={image.id}>
+                <Image
+                  alt={product.title ?? ""}
+                  src={`/products/${image.url}`}
+                  width={300}
+                  height={300}
+                  className="rounded-t-xl shadow-md"
+                />
+
+                <button
+                  type="button"
+                  onClick={() => console.log(image.id, image.url)}
+                  className="btn-danger w-full rounded-b-xl "
+                >
+                  Eliminar
+                </button>
+              </div>
+            ))}
           </div>
         </div>
       </div>
