@@ -3,7 +3,7 @@
 import clsx from "clsx";
 import { useForm } from "react-hook-form";
 import { useRouter } from "next/navigation";
-import { createUpdateProduct } from "@/actions";
+import { createUpdateProduct, deleteProductImage } from "@/actions";
 import {
   Category,
   Product,
@@ -251,7 +251,7 @@ export const ProductForm = ({ product, categories }: Props) => {
 
                 <button
                   type="button"
-                  onClick={() => console.log(image.id, image.url)}
+                  onClick={() => deleteProductImage(image.id, image.url)}
                   className="btn-danger w-full rounded-b-xl "
                 >
                   Eliminar

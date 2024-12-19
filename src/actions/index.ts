@@ -8,6 +8,7 @@ export * from "./product/create-update-product";
 export * from "./product/get-product-by-slug";
 export * from "./product/get-stock-by-slug";
 export * from "./product/product-pagination";
+export * from "./product/delete-product-image";
 
 // country
 export * from "./country/get-countries";
