@@ -15,5 +15,7 @@ Tienda E-commerce desarrollada en Nextjs 15 y Tailwind.
 
 # Ejecutar en PROD
 
-1. Crear el build `npm run build`
-2. Correr el proyecto `npm start`
+1. Crear la base de datos `npx prisma migrate deploy`.
+2. Ejecutar seed `npm run seed`.
+3. Crear el build `npm run build`
+4. Correr el proyecto `npm start`
