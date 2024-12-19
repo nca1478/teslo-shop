@@ -5,10 +5,9 @@ import { revalidatePath } from "next/cache";
 import prisma from "@/lib/prisma";
 import { Gender, Product } from "@prisma/client";
 import { v2 as cloudinary } from "cloudinary";
+import { Size } from "@/interfaces";
 
 cloudinary.config(process.env.CLOUDINARY_URL ?? "");
-
-import { Size } from "@/interfaces";
 
 // Validación de datos del formulario
 const productSchema = z.object({
@@ -82,7 +81,18 @@ export const createUpdateProduct = async (formData: FormData) => {
       // Cargar y guardar las imágenes
       if (formData.getAll("images")) {
         const images = await uploadImages(formData.getAll("images") as File[]);
-        console.log(images);
+
+        if (!images) {
+          throw new Error("Error al subir las imágenes");
+        }
+
+        // guardar en la base de datos
+        await prisma.productImage.createMany({
+          data: images.map((image) => ({
+            url: image!,
+            productId: product.id,
+          })),
+        });
       }
 
       return {
