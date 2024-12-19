@@ -24,6 +24,7 @@ interface FormInputs {
   tags: string;
   gender: "men" | "women" | "kids" | "unisex";
   categoryId: string;
+  images?: FileList;
 }
 
 export const ProductForm = ({ product, categories }: Props) => {
@@ -39,6 +40,7 @@ export const ProductForm = ({ product, categories }: Props) => {
       ...product,
       tags: product.tags?.join(", "),
       sizes: product.sizes ?? [],
+      images: undefined,
     },
   });
   const router = useRouter();
@@ -60,7 +62,7 @@ export const ProductForm = ({ product, categories }: Props) => {
 
   const onSubmit = async (data: FormInputs) => {
     const formData = new FormData();
-    const { ...productToSave } = data;
+    const { images, ...productToSave } = data;
 
     // agregar si existe (es update) si no (es create)
     if (product.id) {
@@ -76,6 +78,12 @@ export const ProductForm = ({ product, categories }: Props) => {
     formData.append("tags", productToSave.tags);
     formData.append("categoryId", productToSave.categoryId);
     formData.append("gender", productToSave.gender);
+
+    if (images) {
+      for (let i = 0; i < images.length; i++) {
+        formData.append("images", images[i]);
+      }
+    }
 
     const { ok, product: updatedProduct } = await createUpdateProduct(formData);
 
@@ -94,6 +102,7 @@ export const ProductForm = ({ product, categories }: Props) => {
     >
       {/* Textos */}
       <div className="w-full">
+        {/* Título */}
         <div className="flex flex-col mb-2">
           <span className="font-bold">Título</span>
           <input
@@ -104,6 +113,7 @@ export const ProductForm = ({ product, categories }: Props) => {
           />
         </div>
 
+        {/* Slug */}
         <div className="flex flex-col mb-2">
           <span className="font-bold">Slug</span>
           <input
@@ -113,6 +123,7 @@ export const ProductForm = ({ product, categories }: Props) => {
           />
         </div>
 
+        {/* Descripción */}
         <div className="flex flex-col mb-2">
           <span className="font-bold">Descripción</span>
           <textarea
@@ -122,6 +133,7 @@ export const ProductForm = ({ product, categories }: Props) => {
           ></textarea>
         </div>
 
+        {/* Precio */}
         <div className="flex flex-col mb-2">
           <span className="font-bold">Price</span>
           <input
@@ -131,6 +143,7 @@ export const ProductForm = ({ product, categories }: Props) => {
           />
         </div>
 
+        {/* Tags */}
         <div className="flex flex-col mb-2">
           <span className="font-bold">Tags</span>
           <input
@@ -140,6 +153,7 @@ export const ProductForm = ({ product, categories }: Props) => {
           />
         </div>
 
+        {/* Género */}
         <div className="flex flex-col mb-2">
           <span className="font-bold">Gender</span>
           <select
@@ -154,6 +168,7 @@ export const ProductForm = ({ product, categories }: Props) => {
           </select>
         </div>
 
+        {/* Categoria */}
         <div className="flex flex-col mb-2">
           <span className="font-bold">Categoria</span>
           <select
@@ -169,12 +184,13 @@ export const ProductForm = ({ product, categories }: Props) => {
           </select>
         </div>
 
+        {/* Botón de guardar */}
         <button className="btn-primary w-full">Guardar</button>
       </div>
 
-      {/* Selector de tallas y fotos */}
+      {/* Tallas */}
       <div className="w-full">
-        {/* As checkboxes */}
+        {/* Checkboxes */}
         <div className="flex flex-col">
           <span className="font-bold">Tallas</span>
           <div className="flex flex-wrap">
@@ -195,6 +211,7 @@ export const ProductForm = ({ product, categories }: Props) => {
             ))}
           </div>
 
+          {/* Existencia */}
           <div className="flex flex-col mb-2">
             <span className="font-bold">Existencia</span>
             <input
@@ -204,16 +221,19 @@ export const ProductForm = ({ product, categories }: Props) => {
             />
           </div>
 
+          {/* Input para agregar fotos */}
           <div className="flex flex-col mb-2">
             <span className="font-bold">Fotos</span>
             <input
               type="file"
               multiple
               className="p-2 border rounded-md bg-gray-200"
-              accept="image/png, image/jpeg"
+              accept="image/png, image/jpeg, image/avif"
+              {...register("images")}
             />
           </div>
 
+          {/* Fotos */}
           <div className="grid grid-cols-1 sm:grid-cols-3 gap-3">
             {product.ProductImage?.map((image) => (
               <div key={image.id}>
