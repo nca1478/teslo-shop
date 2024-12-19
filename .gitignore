@@ -10,6 +10,11 @@
 !.yarn/releases
 !.yarn/versions
 
+# env files (can opt-in for committing if needed)
+.env
+.env.dev
+.env.prod
+
 # db
 /postgres
 
@@ -31,9 +36,6 @@
 npm-debug.log*
 yarn-debug.log*
 yarn-error.log*
-
-# env files (can opt-in for committing if needed)
-.env
 
 # vercel
 .vercel
