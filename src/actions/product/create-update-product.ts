@@ -75,7 +75,7 @@ export const createUpdateProduct = async (formData: FormData) => {
         });
       }
 
-      // Proceso de carga y guardado de imagenes
+      // Cargar y guardar las imágenes
       if (formData.getAll("images")) {
         console.log(formData.getAll("images"));
       }
