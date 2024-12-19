@@ -4,6 +4,7 @@ import { z } from "zod";
 import { Gender, Product } from "@prisma/client";
 import prisma from "@/lib/prisma";
 import { Size } from "@/interfaces";
+import { revalidatePath } from "next/cache";
 
 // Validación de datos del formulario
 const productSchema = z.object({
@@ -79,7 +80,10 @@ export const createUpdateProduct = async (formData: FormData) => {
       };
     });
 
-    // Todo: RevalidatePaths
+    // revalidar los paths
+    revalidatePath("/admin/products");
+    revalidatePath(`/admin/product/${product.slug}`);
+    revalidatePath(`/products/${product.slug}`);
 
     return {
       ok: true,
